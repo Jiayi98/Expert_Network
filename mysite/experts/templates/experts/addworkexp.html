@@ -1,0 +1,24 @@
+{% extends "experts/base.html" %}
+    {% block content %}
+        <br>
+        <h1>增加工作经历</h1>
+        <br>
+        <h3>POST方式</h3>
+        <form action="/addworkexptodatabase/" method="post" name="addworkexp">
+            {% csrf_token %}
+<!--            ename: <input type="text" name="ename">-->
+<!--            emobile: <input type="text" name="emobile">-->
+<!--            stime: <input type="text" name="stime" value="1900-01-01">-->
+<!--            etime : <input type="text" name="etime" value="1900-01-01">-->
+<!--            company: <input type="text" name="company">-->
+<!--            agency: <input type="text" name="agency">-->
+<!--            position: <input type="text" name="position">-->
+<!--            duty: <input type="text" name="duty">-->
+<!--            area: <input type="text" name="area">-->
+<!--            istonow: <input type="text" name="istonow" value='0'>-->
+            {{ form.as_p }}
+            <input type="reset">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="add">
+        </form>
+
+    {% endblock content %}
+

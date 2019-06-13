@@ -1,0 +1,15 @@
+{% extends "experts/base.html" %}
+    {% block content %}
+        <br>
+        <h1>增加专家</h1>
+        <br>
+        <h3>POST方式</h3>
+        <form action="/addexperttodatabase/" method="post" name="addexpert">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+            <input type="reset">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="add">
+        </form>
+
+    {% endblock content %}
+
