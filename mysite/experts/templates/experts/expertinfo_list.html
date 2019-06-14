@@ -1,0 +1,10 @@
+{% extends "experts/base.html" %}
+{% block content %}
+    <br>
+    <h1>Experts</h1>
+    {% for expert in experts %}
+    <h3> <a href="{{ expert.get_absolute_url }}"> {{ expert.ename }}</a></h3>
+    <p class="eid">EID: {{ expert.eid }}&nbsp&nbsp&nbsp//&nbsp&nbsp&nbspAddtime: {{ expert.addtime }}</p>
+    {% endfor %}
+    {% include "experts/pagination.html" with page=experts %}
+{% endblock content %}

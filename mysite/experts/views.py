@@ -1,11 +1,12 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import ExpertInfo,ExpertComments,WorkExp
 from .forms import ExpertInfoForm, CommentForm,WorkexpForm
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
@@ -142,3 +143,21 @@ def addWorkexpToDatabase(request):
 @login_required
 def addok(request):
     return render(request, 'experts/add_complete.html')
+
+
+def expertInfo_list(request):
+    experts_list = ExpertInfo.objects.all()
+    paginator = Paginator(experts_list, 10)
+    page = request.GET.get('page')
+    try:
+        experts = paginator.page(page)
+    except PageNotAnInteger:
+        experts = paginator.page(1)
+    except EmptyPage:
+        experts = paginator.page(paginator.num_pages)
+    return render(request, 'experts/expertinfo_list.html', {'page':page, 'experts':experts})
+
+def expert_detail(request, ename, emobile):
+    expert = get_object_or404(ExpertInfo, ename=ename, emobile=emobile)
+    return render(request, 'expert_detail.html', {'expert':expert})
+

@@ -49,6 +49,9 @@ urlpatterns = [
 
     path('addcomplete/', experts_views.addok, name='addcomplete'),
     path('expertalreadyexist/', experts_views.addExpertToDatabase, name='expertalreadyexist'),
+
+    path('expertinfolist/', experts_views.expertInfo_list, name='expertinfolist'),
+    path('<str:ename>/<str:emobile>/', experts_views.expert_detail, name='expert_detail'),
     path('', include('experts.urls')),
     path('', include('users.urls')),
 

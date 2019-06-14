@@ -1,6 +1,6 @@
 # Create your models here.
 from django.db import models
-
+from django.urls import reverse
 
 
 class ExpertInfo(models.Model):
@@ -30,6 +30,9 @@ class ExpertInfo(models.Model):
 
     def __str__(self):
         return "{}-{}".format(self.eid, self.ename)
+
+    def get_absolute_url(self):
+        return reverse('expert_detail',args=[self.ename, self.emobile])
 
 
 class ExpertComments(models.Model):
