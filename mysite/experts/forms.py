@@ -27,6 +27,12 @@ class ExpertInfoForm(forms.ModelForm):
                   'esubtrade','ebirthday','elandline','elocation',
                   'emsn','eqq','ephoto','estate','ecomefrom','eremark','admin_id')
 
+    def __init__(self, *args, **kwargs):
+        super(ExpertInfoForm, self).__init__(*args, **kwargs)
+        for field_name in self.base_fields:
+            field = self.base_fields[field_name]
+            field.widget.attrs.update({"class":"form-control"})
+
 
 # 从ExpertInfo模型中动态地创建表单
 class CommentForm(forms.ModelForm):
@@ -45,6 +51,12 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = ExpertComments
         fields = ('ename','emobile','eproblem','ecomment')
+
+    def __init__(self, *args, **kwargs):
+        super(CommentForm, self).__init__(*args, **kwargs)
+        for field_name in self.base_fields:
+            field = self.base_fields[field_name]
+            field.widget.attrs.update({"class":"form-control"})
 
 
 
@@ -71,3 +83,8 @@ class WorkexpForm(forms.ModelForm):
                   'company','agency','position','duty',
                   'area','istonow')
 
+    def __init__(self, *args, **kwargs):
+        super(WorkexpForm, self).__init__(*args, **kwargs)
+        for field_name in self.base_fields:
+            field = self.base_fields[field_name]
+            field.widget.attrs.update({"class":"form-control"})

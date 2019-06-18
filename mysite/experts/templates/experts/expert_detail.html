@@ -3,19 +3,20 @@
     <br>
     <h1>{{ expert.ename }}</h1>
     <br>
-    <li> {{ expert.emobile }} </li>
-    <li> {{ expert.eid }} </li>
-    <li> {{ expert.esex }} </li>
-    <li> {{ expert.eemail }} </li>
-    <li> {{ expert.etrade }} </li>
-    <li> {{ expert.esubtrade }} </li>
-    <li> {{ expert.ebirthday }} </li>
-    <li> {{ expert.elandline }} </li>
-    <li> {{ expert.emsn }} </li>
-    <li> {{ expert.eqq }} </li>
-    <li> {{ expert.estate }} </li>
-    <li> {{ expert.ecomefrom }} </li>
-    <li> {{ expert.eremark }} </li>
-    <li> {{ expert.admin_id }} </li>
-    <li> {{ expert.addtime }} </li>
+    <li> 电话： {{ expert.emobile }} </li>
+    <li> EID： {{ expert.eid }} </li>
+    <li> 性别： {{ expert.esex }} </li>
+    <li> 邮箱： {{ expert.eemail }} </li>
+    <li> 行业： {{ expert.etrade }} </li>
+    <li> 子行业： {{ expert.esubtrade }} </li>
+    <li> 生日： {{ expert.ebirthday }} </li>
+    <li> 地区： {{expert.elocation}} </li>
+    <li> Landline：{{ expert.elandline }} </li>
+    <li> MSN: {{ expert.emsn }} </li>
+    <li> QQ: {{ expert.eqq }} </li>
+    <li> State： {{ expert.estate }} </li>
+    <li> 来源： {{ expert.ecomefrom }} </li>
+    <li> 备注： {{ expert.eremark }} </li>
+    <li> admin_id：{{ expert.admin_id }} </li>
+    <li> 添加时间： {{ expert.addtime }} </li>
 {% endblock content %}

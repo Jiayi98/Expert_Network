@@ -18,6 +18,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import path, include
 from users import views as user_views
 from experts import views as experts_views
+from experts import views_update as update_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -50,10 +51,18 @@ urlpatterns = [
     path('addcomplete/', experts_views.addok, name='addcomplete'),
     path('expertalreadyexist/', experts_views.addExpertToDatabase, name='expertalreadyexist'),
 
+    path('updateexpert/', update_views.expertInfoUpdate, name='updateexpert'),
     path('expertinfolist/', experts_views.expertInfo_list, name='expertinfolist'),
     path('<str:ename>/<str:emobile>/', experts_views.expert_detail, name='expert_detail'),
+    path('update/<str:ename>/<str:emobile>/', experts_views.expert_detail_update, name='expert_detail_update'),
+    path('expertinfoupdatetodatabase/', update_views.expertInfoUpdateToDatabase, name='expertinfoupdatetodatabase'),
     path('', include('experts.urls')),
     path('', include('users.urls')),
 
 ]
+"""
+path('update/<str:ename>/<str:emobile>/', experts_views.expert_detail_update, name='expert_detail_update'),
+path('updateexpert/', update_views.expertInfoUpdate, name='updateexpert'),
+path('expertinfoupdatetodatabase/', update_views.expertInfoUpdateToDatabase, name='expertinfoupdatetodatabase'),
 
+"""

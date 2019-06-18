@@ -5,6 +5,9 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import ExpertInfo,ExpertComments,WorkExp
 from .forms import ExpertInfoForm, CommentForm,WorkexpForm
+
+#from .forms_update import ExpertInfoFormUpdateDB
+
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -31,11 +34,11 @@ def addExpertToDatabase(request):
         print("-----------POST----------")
         expertInfo_form = ExpertInfoForm(data=request.POST)
         if expertInfo_form.is_valid():
-            print("-----------Does not exit!----------")
             new_expert = expertInfo_form.save(commit=False)
+            # filter得到的是一个list，而不是一个object
             expert = ExpertInfo.objects.filter(ename=new_expert.ename, emobile=new_expert.emobile)
             if expert.exists() == 0:
-                print("-----------Does not exit!----------")
+                print("-----------Does not exist!----------")
                 new_expert = expertInfo_form.save()
             else:
                 print("!!!!!!!!!!!This expert already existed!!!!!!!!")
@@ -48,7 +51,6 @@ def addExpertToDatabase(request):
 
     # 重定向
     return HttpResponseRedirect('/addcomplete/')
-
 
 """
 """
@@ -75,6 +77,7 @@ def addCommentToDatabase(request):
             return HttpResponseRedirect('/addecomment/')
             #return HttpResponseRedirect('experts/expertnotexist/')
         else:
+            form = CommentForm(request.POST, instance=expert)
             print("----------Expert Exists----------")
             newComment = ExpertComments()
             newComment.eid_id = expert.eid
@@ -99,6 +102,7 @@ def addWorkexp(request):
 
 @login_required
 def addWorkexpToDatabase(request):
+
     if request.method == "POST":
         ename = request.POST["ename"]
         emobile = request.POST["emobile"]
@@ -119,6 +123,7 @@ def addWorkexpToDatabase(request):
             return HttpResponseRedirect('/addeworkexp/')
             # return HttpResponseRedirect('experts/expertnotexist/')
         else:
+            form = WorkexpForm(request.POST, instance=expert)
             print("----------Expert Exists----------")
             newExp = WorkExp()
             newExp.eid_id = expert.eid
@@ -158,6 +163,63 @@ def expertInfo_list(request):
     return render(request, 'experts/expertinfo_list.html', {'page':page, 'experts':experts})
 
 def expert_detail(request, ename, emobile):
-    expert = get_object_or404(ExpertInfo, ename=ename, emobile=emobile)
-    return render(request, 'expert_detail.html', {'expert':expert})
+    expert = get_object_or_404(ExpertInfo, ename=ename, emobile=emobile)
+    return render(request, 'experts/expert_detail.html', {'expert':expert})
+
+
+def expert_detail_update(request, name, mobile):
+    expert = get_object_or_404(ExpertInfo, ename=name, emobile=mobile)
+    #form = ExpertInfoFormUpdateDB(instance=expert)
+    return render(request, 'experts/expert_detail_update.html', {'expert': expert})
+       # ename_2 = request.POST.get('ename')
+        #esex = request.POST.get("esex")
+        #emobile_2 = request.POST.get("emobile")
+        #eemail = request.POST.get("eemail")
+        #etrade = request.POST.get("etrade")
+        #esubtrade = request.POST.get("esubtrade")
+        #ebirthday = request.POST.get("ebirthday")
+        #elandline = request.POST.get("elandline")
+        #elocation = request.POST.get("elocation")
+        #eqq = request.POST.get("eqq")
+        #ephoto = request.POST.get("ephoto")
+        #estate = request.POST.get("estate")
+        #ecomefrom = request.POST.get("ecomefrom")
+        #eremark = request.POST.get("eremark")
+        #admin_id = request.POST.get("admin_id")
+
+
+    #if form.is_valid():
+        #updatedExpert_form = ExpertInfoFormUpdateDB()
+        #expert.ename = ename_2
+        #expert.esex = esex
+        #expert.emobile = emobile_2
+        #expert.eemail = eemail
+        #expert.etrade = etrade
+        #expert.esubtrade = esubtrade
+        #expert.ebirthday = ebirthday
+        #expert.elandline = elandline
+        #expert.elocation = elocation
+        #expert.eqq = eqq
+        #expert.ephoto = ephoto
+        #expert.estate = estate
+        #expert.ecomefrom = ecomefrom
+        #expert.eremark = eremark
+        #expert.admin_id = admin_id
+        #expert.save()
+    #updatedExpert = updatedExpert_form.save(commit=False)
+
+
+
+
+
+
+
+    #print("---------保存了！-----------")
+    #return HttpResponseRedirect('/addcomplete/')
+
+    #else:
+     #   print("---------INVALID表单-----------")
+
+
+
 

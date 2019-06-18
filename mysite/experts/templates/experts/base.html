@@ -64,13 +64,19 @@
             <p class='text-muted'>You can put any information here you'd like.
               <ul class="list-group">
               <li class="list-group-item list-group-item-light"><a href="/">Search</a></li>
-              <li class="list-group-item list-group-item-light"><a href="/">Update</a></li>
+              <li class="list-group-item list-group-item-light">
+                  Update
+                  <br>
+                  <a href="{% url 'updateexpert' %}">更新专家信息&nbsp&nbsp&nbsp</a>
+              </li>
               <li class="list-group-item list-group-item-light"><a href="/">Delete</a></li>
                 <li class="list-group-item list-group-item-light" %}">
-                    <a href="{% url 'addexpert'%}">添加专家 </a>
+                    Insert
                     <br>
-                    <a href="{% url 'addcomment'%}">添加访谈 </a>
-                    <br>
+                    <a href="{% url 'addexpert'%}">添加专家&nbsp&nbsp&nbsp</a>
+
+                    <a href="{% url 'addcomment'%}">添加访谈&nbsp&nbsp&nbsp</a>
+
                     <a href="{% url 'addworkexp'%}"">添加经历</a>
                 </li>
               </ul>

@@ -6,6 +6,18 @@
         <h3>POST方式</h3>
         <form action="/addworkexptodatabase/" method="post" name="addworkexp">
             {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    <label class="sol-sm-2 control-label">{{ field.label }}</label>
+                    <div class="col-sm-10">
+                        {{ field }}
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="pull-right col-sm-pull-11">
+                <button type="reset" class="btn btn-warning">重置</button>
+                <button type="submit" class="btn btn-success">添加</button>
+            </div>
 <!--            ename: <input type="text" name="ename">-->
 <!--            emobile: <input type="text" name="emobile">-->
 <!--            stime: <input type="text" name="stime" value="1900-01-01">-->
@@ -16,8 +28,8 @@
 <!--            duty: <input type="text" name="duty">-->
 <!--            area: <input type="text" name="area">-->
 <!--            istonow: <input type="text" name="istonow" value='0'>-->
-            {{ form.as_p }}
-            <input type="reset">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="add">
+<!--             {{ form.as_p }}-->
+<!--             <input type="reset">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="add">-->
         </form>
 
     {% endblock content %}

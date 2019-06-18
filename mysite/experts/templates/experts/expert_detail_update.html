@@ -1,0 +1,39 @@
+{% extends "experts/base.html" %}
+{% block content %}
+    <br>
+    <h1> 更新 {{ expert.ename }} 信息</h1>
+    <br>
+    <li> 电话： {{ expert.emobile }} </li>
+    <li> EID： {{ expert.eid }} </li>
+    <li> 性别： {{ expert.esex }} </li>
+    <li> 邮箱： {{ expert.eemail }} </li>
+    <li> 行业： {{ expert.etrade }} </li>
+    <li> 子行业： {{ expert.esubtrade }} </li>
+    <li> 生日： {{ expert.ebirthday }} </li>
+    <li> 地区： {{expert.elocation}} </li>
+    <li> Landline： {{ expert.elandline }} </li>
+    <li> MSN: {{ expert.emsn }} </li>
+    <li> QQ: {{ expert.eqq }} </li>
+    <li> State： {{ expert.estate }} </li>
+    <li> 来源： {{ expert.ecomefrom }} </li>
+    <li> 备注： {{ expert.eremark }} </li>
+    <li> admin_id：{{ expert.admin_id }} </li>
+    <li> 添加时间： {{ expert.addtime }} </li>
+    <form action="{{ expert.get_update_url }}" method="post" name="expert_detail_update">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                <label class="sol-sm-2 control-label">{{ field.label }}</label>
+                <div class="col-sm-10">
+                    {{ field }}
+                </div>
+            </div>
+        {% endfor %}}
+        <div class="pull-right col-sm-pull-11">
+                 <button type="reset" class="btn btn-warning">重置</button>
+                 <button type="submit" class="btn btn-success">更新</button>
+        </div>
+    </form>
+<!--action="/update/<str:ename>/<str:emobile>/"  -->
+
+{% endblock content %}
