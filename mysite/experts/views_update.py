@@ -18,10 +18,11 @@ def expertInfoUpdate(request):
 
 def expertInfoUpdateToDatabase(request):
     print("!!!!!!!!!!!UPDATE这里！!!!!!!!!")
+    form = ExpertInfoFormUpdate()
     ename = request.POST["ename"]
     expert_objs = ExpertInfo.objects.filter(ename=ename)
     for obj in expert_objs:
         print(obj.eid)
 
     #return HttpResponseRedirect('/updateexpert/')
-    return render(request, 'experts/update_expert.html', {'expert_objs': expert_objs})
+    return render(request, 'experts/update_expert.html', {'form': form,'expert_objs': expert_objs})
