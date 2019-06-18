@@ -167,8 +167,8 @@ def expert_detail(request, ename, emobile):
     return render(request, 'experts/expert_detail.html', {'expert':expert})
 
 
-def expert_detail_update(request, name, mobile):
-    expert = get_object_or_404(ExpertInfo, ename=name, emobile=mobile)
+def expert_detail_update(request, ename, emobile):
+    expert = get_object_or_404(ExpertInfo, ename=ename, emobile=emobile)
     #form = ExpertInfoFormUpdateDB(instance=expert)
     return render(request, 'experts/expert_detail_update.html', {'expert': expert})
        # ename_2 = request.POST.get('ename')
