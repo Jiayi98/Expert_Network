@@ -38,7 +38,7 @@ class ExpertInfo(models.Model):
         return reverse('comment_detail',args=[self.eid, self.ename])
 
     def get_workexp_url(self):
-        return reverse('workexp_detail',args=[self.eid,])
+        return reverse('workexp_detail',args=[self.eid, self.ename])
 
     def get_update_url(self):
         return reverse('expert_detail_update', args=[self.ename, self.emobile])
@@ -72,7 +72,7 @@ class WorkExp(models.Model):
 
     class Meta:
         managed = True
-        ordering = ('-etime', 'stime',)
+        ordering = ('-stime',)
 
     def __str__(self):
         return "{}-{}".format(self.eid,self.company)

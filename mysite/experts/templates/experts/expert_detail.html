@@ -26,7 +26,9 @@
     <li> admin_id：{{ expert.admin_id }} </li>
     <li> 添加时间： {{ expert.addtime }} </li>
 <br><br>
-<button type="button" onclick="window.location.href='{{ expert.get_comment_url }}'">专家访谈</button><br><br>
+<button type="button" class="btn btn-warning" onclick="window.location.href='{{ expert.get_comment_url }}'">专家访谈</button>&nbsp&nbsp&nbsp
+<button type="button" class="btn btn-warning" onclick="window.location.href='{{ expert.get_workexp_url }}'">工作经历</button><br><br>
+
 
 
     <!--<input type="button" value="专家访谈" onclick="window.location.href('{{ expert.get_comment_url }}')">

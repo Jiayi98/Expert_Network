@@ -193,13 +193,25 @@ def expert_detail_update(request, ename, emobile):
 
 
 def comment_detail(request, eid, ename):
+    # if not request.user.has_perm(''):
+    #    raise PermissionDenied
+
     expert = get_object_or_404(ExpertInfo,eid=eid)
-    # eid = expert.eid
     comments = ExpertComments.objects.filter(eid=eid)
     print(eid)
     for c in comments:
         print(c.cmtid)
     return render(request, 'experts/comment_detail.html', {'expert':expert,'comments': comments})
 
+def workexp_detail(request, eid, ename):
+    # if not request.user.has_perm(''):
+    #    raise PermissionDenied
+
+    expert = get_object_or_404(ExpertInfo,eid=eid)
+    workexps = WorkExp.objects.filter(eid=eid)
+    print(eid)
+    for w in workexps:
+        print(w.expid)
+    return render(request, 'experts/workexp_detail.html', {'expert':expert,'workexps': workexps})
 
 

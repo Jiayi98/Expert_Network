@@ -1,0 +1,17 @@
+{% extends "experts/base.html" %}
+
+{% block content %}
+    <br><br>
+    <h2>{{expert.ename}} - 工作经历</h2>
+    <br><br>
+    {% for exp in workexps %}
+        <div class="work_experience">
+            <label class="sol-sm-2 control-label">时间： {{ exp.stime }} - {{ exp.etime }}</label>
+            <!--<li> 时间： {{ exp.stime }} - {{ exp.etime }} </li>-->
+            <li> 公司/部门： {{ exp.company }} - {{ exp.agency }} </li>
+            <li> 职位/职责： {{ exp.position }} - {{ exp.duty }} </li>
+            <li> 领域： {{ exp.area }} </li>
+        </div>
+        <br>
+    {% endfor %}
+{% endblock content %}
