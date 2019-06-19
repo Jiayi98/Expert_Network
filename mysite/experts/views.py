@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import ExpertInfo,ExpertComments,WorkExp
 from .forms import ExpertInfoForm, CommentForm,WorkexpForm
 
-#from .forms_update import ExpertInfoFormUpdateDB
+from .forms_update import ExpertInfoFormUpdateDB
 
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -168,9 +168,20 @@ def expert_detail(request, ename, emobile):
 
 
 def expert_detail_update(request, ename, emobile):
-    expert = get_object_or_404(ExpertInfo, ename=ename, emobile=emobile)
+    template_name = 'experts/expert_detail_update.html'
+    object = get_object_or_404(ExpertInfo, ename=ename, emobile=emobile)
     #form = ExpertInfoFormUpdateDB(instance=expert)
-    return render(request, 'experts/expert_detail_update.html', {'expert': expert})
+
+    if request.method == 'POST':
+        form = ExpertInfoFormUpdateDB(instance=object, data=request.POST)
+        if form.is_valid():
+            form.save()
+            # if is_ajax(), we just return the validated form, so the modal will close
+    else:
+        form = ExpertInfoFormUpdateDB(instance=object)
+
+    return render(request, template_name, {'form': form,})
+    #return render(request, 'experts/expert_detail_update.html', {'expert': expert})
        # ename_2 = request.POST.get('ename')
         #esex = request.POST.get("esex")
         #emobile_2 = request.POST.get("emobile")

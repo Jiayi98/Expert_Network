@@ -37,6 +37,8 @@ class ExpertInfo(models.Model):
     def get_update_url(self):
         return reverse('expert_detail_update', args=[self.ename, self.emobile])
 
+    def get_info_update(self):
+        return reverse('expert_detail_update', args=[self.ename, self.emobile])
 
 class ExpertComments(models.Model):
     cmtid = models.AutoField(primary_key=True)

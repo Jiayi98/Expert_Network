@@ -60,6 +60,7 @@ urlpatterns = [
     path('', include('users.urls')),
 
 ]
+
 """
 path('update/<str:ename>/<str:emobile>/', experts_views.expert_detail_update, name='expert_detail_update'),
 path('updateexpert/', update_views.expertInfoUpdate, name='updateexpert'),
