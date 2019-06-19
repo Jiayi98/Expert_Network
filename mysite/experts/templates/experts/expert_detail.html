@@ -1,4 +1,10 @@
 {% extends "experts/base.html" %}
+<script>
+    function openWin()
+    {
+        window.location.href("{{ expert.get_comment_url }}")
+    }
+</script>
 {% block content %}
     <br>
     <h1>{{ expert.ename }}</h1>
@@ -19,4 +25,18 @@
     <li> 备注： {{ expert.eremark }} </li>
     <li> admin_id：{{ expert.admin_id }} </li>
     <li> 添加时间： {{ expert.addtime }} </li>
+<br><br>
+<button type="button" onclick="window.location.href='{{ expert.get_comment_url }}'">专家访谈</button><br><br>
+
+
+    <!--<input type="button" value="专家访谈" onclick="window.location.href('{{ expert.get_comment_url }}')">
+    <br>
+    {% for comment in comments %}
+        <div class="expert_comment">
+            <label class="sol-sm-2 control-label">专家访谈</label>
+            <li> 访谈： {{ comment.eproblem }} </li>
+            <li> 访谈详情： {{ comment.ecomment }} </li>
+        </div>
+        <br>
+    {% endfor %}-->
 {% endblock content %}

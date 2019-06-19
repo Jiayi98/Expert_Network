@@ -163,8 +163,17 @@ def expertInfo_list(request):
     return render(request, 'experts/expertinfo_list.html', {'page':page, 'experts':experts})
 
 def expert_detail(request, ename, emobile):
+    # if not request.user.has_perm(''):
+    #    raise PermissionDenied
+
     expert = get_object_or_404(ExpertInfo, ename=ename, emobile=emobile)
-    return render(request, 'experts/expert_detail.html', {'expert':expert})
+    #eid = expert.eid
+    #comments = ExpertComments.objects.filter(eid=expert.eid)
+    #print(expert.eid)
+    #for c in comments:
+    #    print(c.cmtid)
+    return render(request, 'experts/expert_detail.html', {'expert': expert})
+    #return render(request, 'experts/expert_detail.html', {'expert':expert, 'comments':comments})
 
 
 def expert_detail_update(request, ename, emobile):
@@ -181,56 +190,16 @@ def expert_detail_update(request, ename, emobile):
         form = ExpertInfoFormUpdateDB(instance=object)
 
     return render(request, template_name, {'form': form,})
-    #return render(request, 'experts/expert_detail_update.html', {'expert': expert})
-       # ename_2 = request.POST.get('ename')
-        #esex = request.POST.get("esex")
-        #emobile_2 = request.POST.get("emobile")
-        #eemail = request.POST.get("eemail")
-        #etrade = request.POST.get("etrade")
-        #esubtrade = request.POST.get("esubtrade")
-        #ebirthday = request.POST.get("ebirthday")
-        #elandline = request.POST.get("elandline")
-        #elocation = request.POST.get("elocation")
-        #eqq = request.POST.get("eqq")
-        #ephoto = request.POST.get("ephoto")
-        #estate = request.POST.get("estate")
-        #ecomefrom = request.POST.get("ecomefrom")
-        #eremark = request.POST.get("eremark")
-        #admin_id = request.POST.get("admin_id")
 
 
-    #if form.is_valid():
-        #updatedExpert_form = ExpertInfoFormUpdateDB()
-        #expert.ename = ename_2
-        #expert.esex = esex
-        #expert.emobile = emobile_2
-        #expert.eemail = eemail
-        #expert.etrade = etrade
-        #expert.esubtrade = esubtrade
-        #expert.ebirthday = ebirthday
-        #expert.elandline = elandline
-        #expert.elocation = elocation
-        #expert.eqq = eqq
-        #expert.ephoto = ephoto
-        #expert.estate = estate
-        #expert.ecomefrom = ecomefrom
-        #expert.eremark = eremark
-        #expert.admin_id = admin_id
-        #expert.save()
-    #updatedExpert = updatedExpert_form.save(commit=False)
-
-
-
-
-
-
-
-    #print("---------保存了！-----------")
-    #return HttpResponseRedirect('/addcomplete/')
-
-    #else:
-     #   print("---------INVALID表单-----------")
-
+def comment_detail(request, eid, ename):
+    expert = get_object_or_404(ExpertInfo,eid=eid)
+    # eid = expert.eid
+    comments = ExpertComments.objects.filter(eid=eid)
+    print(eid)
+    for c in comments:
+        print(c.cmtid)
+    return render(request, 'experts/comment_detail.html', {'expert':expert,'comments': comments})
 
 
 

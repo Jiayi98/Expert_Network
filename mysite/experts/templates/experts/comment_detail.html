@@ -1,0 +1,15 @@
+{% extends "experts/base.html" %}
+
+{% block content %}
+    <br><br>
+    <h2>{{expert.ename}} - 访谈记录</h2>
+    <br><br>
+    {% for comment in comments %}
+        <div class="expert_comment">
+            <label class="sol-sm-2 control-label">专家访谈</label>
+            <li> 访谈： {{ comment.eproblem }} </li>
+            <li> 访谈详情： {{ comment.ecomment }} </li>
+        </div>
+        <br>
+    {% endfor %}
+{% endblock content %}

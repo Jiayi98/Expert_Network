@@ -56,6 +56,9 @@ urlpatterns = [
     path('<str:ename>/<str:emobile>/', experts_views.expert_detail, name='expert_detail'),
     path('update/<str:ename>/<str:emobile>/', experts_views.expert_detail_update, name='expert_detail_update'),
     path('expertinfoupdatetodatabase/', update_views.expertInfoUpdateToDatabase, name='expertinfoupdatetodatabase'),
+
+    path('<int:eid>/<str:ename>/commentdetail/', experts_views.comment_detail, name='comment_detail'),
+
     path('', include('experts.urls')),
     path('', include('users.urls')),
 
