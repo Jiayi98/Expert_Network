@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import ExpertInfo,ExpertComments,WorkExp
 from .forms import ExpertInfoForm, CommentForm,WorkexpForm
 
-from .forms_update import ExpertInfoFormUpdateDB
+from .forms_update import ExpertInfoFormUpdateDB,CommentFormUpdateDB, WorkexpFormUpdateDB
 
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -186,22 +186,44 @@ def expert_detail_update(request, ename, emobile):
         if form.is_valid():
             form.save()
             # if is_ajax(), we just return the validated form, so the modal will close
+        return HttpResponseRedirect('/addcomplete/')
     else:
         form = ExpertInfoFormUpdateDB(instance=object)
 
-    return render(request, template_name, {'form': form,})
+    return render(request, template_name, {'expert':object,'form': form,})
+
 
 
 def comment_detail(request, eid, ename):
     # if not request.user.has_perm(''):
     #    raise PermissionDenied
-
+    print("=================在views.py中comment_detail()==========")
     expert = get_object_or_404(ExpertInfo,eid=eid)
     comments = ExpertComments.objects.filter(eid=eid)
     print(eid)
     for c in comments:
         print(c.cmtid)
     return render(request, 'experts/comment_detail.html', {'expert':expert,'comments': comments})
+
+# 刚加的
+def comment_detail_update(request, eid, cmtid):
+    print("=============views.py中comment_detail_update()")
+    template_name = 'experts/comment_detail_update.html'
+    expert = get_object_or_404(ExpertInfo, eid=eid)
+    comment = get_object_or_404(ExpertComments, cmtid=cmtid)
+    #form = ExpertInfoFormUpdateDB(instance=expert)
+    print(eid, comment.eproblem)
+    if request.method == 'POST':
+        form = CommentFormUpdateDB(instance=comment, data=request.POST)
+        if form.is_valid():
+            form.save()
+            # if is_ajax(), we just return the validated form, so the modal will close
+        return HttpResponseRedirect('/addcomplete/')
+    else:
+        form = CommentFormUpdateDB(instance=comment)
+
+    return render(request, template_name, {'comment':comment,'expert': expert,'form': form,})
+
 
 def workexp_detail(request, eid, ename):
     # if not request.user.has_perm(''):
@@ -213,5 +235,23 @@ def workexp_detail(request, eid, ename):
     for w in workexps:
         print(w.expid)
     return render(request, 'experts/workexp_detail.html', {'expert':expert,'workexps': workexps})
+
+# 刚加的
+def workexp_detail_update(request, eid, expid):
+    print("=============views.py中workexp_detail_update()")
+    template_name = 'experts/workexp_detail_update.html'
+    expert = get_object_or_404(ExpertInfo, eid=eid)
+    workexp = get_object_or_404(WorkExp, expid=expid)
+
+    if request.method == 'POST':
+        form = WorkexpFormUpdateDB(instance=workexp, data=request.POST)
+        if form.is_valid():
+            form.save()
+            # if is_ajax(), we just return the validated form, so the modal will close
+        return HttpResponseRedirect('/addcomplete/')
+    else:
+        form = WorkexpFormUpdateDB(instance=workexp)
+
+    return render(request, template_name, {'workexp':workexp,'expert': expert,'form': form,})
 
 

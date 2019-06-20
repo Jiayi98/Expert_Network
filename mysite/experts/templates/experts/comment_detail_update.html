@@ -4,7 +4,7 @@
    <h1> 更新{{ expert.ename }}信息</h1>
     <br>
 
-    <form action="{{ expert.get_update_url }}" method="post" name="expert_detail_update">
+    <form action="{{ comment.get_comment_update_url }}" method="post" name="comment_detail_update">
         {% csrf_token %}
         {% for field in form %}
             <div class="form-group">
@@ -13,10 +13,9 @@
                     {{ field }}
                 </div>
             </div>
-        {% endfor %}
-        <br>
+        {% endfor %}}
         <div class="pull-right col-sm-pull-11">
-                 <button type="reset" class="btn btn-warning">重置</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                 <button type="reset" class="btn btn-warning">重置</button>
                  <button type="submit" class="btn btn-success">更新</button>
         </div>
     </form>

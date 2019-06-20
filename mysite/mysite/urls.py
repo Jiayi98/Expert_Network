@@ -58,7 +58,10 @@ urlpatterns = [
     path('expertinfoupdatetodatabase/', update_views.expertInfoUpdateToDatabase, name='expertinfoupdatetodatabase'),
 
     path('<int:eid>/<str:ename>/commentdetail/', experts_views.comment_detail, name='comment_detail'),
+    path('update/<int:eid>/<int:cmtid>/commentdetail/', experts_views.comment_detail_update, name='comment_detail_update'),
+
     path('<int:eid>/<str:ename>/workexpdetail/', experts_views.workexp_detail, name='workexp_detail'),
+    path('update/<int:eid>/<int:expid>/workexpdetail/', experts_views.workexp_detail_update, name='workexp_detail_update'),
 
     path('', include('experts.urls')),
     path('', include('users.urls')),
@@ -66,8 +69,13 @@ urlpatterns = [
 ]
 
 """
-path('update/<str:ename>/<str:emobile>/', experts_views.expert_detail_update, name='expert_detail_update'),
-path('updateexpert/', update_views.expertInfoUpdate, name='updateexpert'),
-path('expertinfoupdatetodatabase/', update_views.expertInfoUpdateToDatabase, name='expertinfoupdatetodatabase'),
+ path('update/<int:eid>/<str:ename>/commentdetail/', experts_views.comment_detail_update, name='comment_detail_update'),
+path('updateomment', update_views.commentUpdate, name='updatecomment'),
+    path('updateworkexp/', update_views.workexpUpdate, name='updateworkexp'),
+   
+path('update/<int:eid>/<str:ename>/workexpdetail/', experts_views.workexp_detail_update, name='workexp_detail_update'),
+    path('workexpupdatetodatabase/', update_views.workexpUpdateToDatabase, name='workexpupdatetodatabase'),
+path('update/<int:eid>/<str:ename>/commentdetail/', experts_views.comment_detail_update, name='comment_detail_update'),
+    path('commentupdatetodatabase/', update_views.commentUpdateToDatabase, name='commentupdatetodatabase'),
 
 """

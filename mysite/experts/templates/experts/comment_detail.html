@@ -1,3 +1,4 @@
+
 {% extends "experts/base.html" %}
 
 {% block content %}
@@ -11,5 +12,8 @@
             <li> 访谈详情： {{ comment.ecomment }} </li>
         </div>
         <br>
+        <button type="button" class="btn btn-info" onclick="window.location.href='{{ comment.get_comment_update_url }}'">修改</button>&nbsp&nbsp&nbsp
+        <button type="button" class="btn btn-danger" onclick="window.location.href=''">删除</button><br><br>
+        <br><br>
     {% endfor %}
 {% endblock content %}

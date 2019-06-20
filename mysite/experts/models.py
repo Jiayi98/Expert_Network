@@ -58,6 +58,21 @@ class ExpertComments(models.Model):
         # 默认的人们可读的对象表达方式
         return "{}-{}".format(self.eid,self.eproblem)
 
+
+    # 刚加的
+    def get_comment_update_url(self):
+        print("==========在models.py中的 get_comment_update_url()")
+        num = self.eid.eid
+        print(type(num))
+        return reverse('comment_detail_update', args=[num,self.cmtid ])
+
+    """
+    def get_comment_url(self):
+        return reverse('comment_detail',args=[self.eid,])
+    """
+
+
+
 class WorkExp(models.Model):
     expid = models.AutoField(primary_key=True)
     eid = models.ForeignKey('ExpertInfo', on_delete=models.CASCADE)
@@ -76,3 +91,9 @@ class WorkExp(models.Model):
 
     def __str__(self):
         return "{}-{}".format(self.eid,self.company)
+
+    def get_workexp_update_url(self):
+        print("==========在models.py中的 get_workexp_update_url()")
+        num = self.eid.eid
+        print(type(num))
+        return reverse('workexp_detail_update', args=[num,self.expid ])

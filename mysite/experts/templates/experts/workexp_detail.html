@@ -13,5 +13,8 @@
             <li> 领域： {{ exp.area }} </li>
         </div>
         <br>
+        <button type="button" class="btn btn-info" onclick="window.location.href='{{ exp.get_workexp_update_url }}'">修改</button>&nbsp&nbsp&nbsp
+        <button type="button" class="btn btn-danger" onclick="window.location.href=''">删除</button><br><br>
+        <br><br>
     {% endfor %}
 {% endblock content %}
