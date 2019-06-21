@@ -16,6 +16,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def base(request):
     return render(request, 'experts/base.html')
 
+def delete(request, ename, emobile):
+    print("=============views.DELETE======")
+    template_name = 'experts/delete.html'
+    expert = get_object_or_404(ExpertInfo, ename=ename, emobile=emobile)
+    return render(request, template_name, {'expert':expert,})
 
 """
 EXPERTS INFORMATION
@@ -165,13 +170,14 @@ def expertInfo_list(request):
 def expert_detail(request, ename, emobile):
     # if not request.user.has_perm(''):
     #    raise PermissionDenied
-
+    print("===========views.expert_detail=========")
     expert = get_object_or_404(ExpertInfo, ename=ename, emobile=emobile)
     #eid = expert.eid
     #comments = ExpertComments.objects.filter(eid=expert.eid)
     #print(expert.eid)
     #for c in comments:
     #    print(c.cmtid)
+
     return render(request, 'experts/expert_detail.html', {'expert': expert})
     #return render(request, 'experts/expert_detail.html', {'expert':expert, 'comments':comments})
 
@@ -212,17 +218,18 @@ def comment_detail_update(request, eid, cmtid):
     expert = get_object_or_404(ExpertInfo, eid=eid)
     comment = get_object_or_404(ExpertComments, cmtid=cmtid)
     #form = ExpertInfoFormUpdateDB(instance=expert)
-    print(eid, comment.eproblem)
+    #print(eid, comment.eproblem)
+    result = {}
     if request.method == 'POST':
         form = CommentFormUpdateDB(instance=comment, data=request.POST)
         if form.is_valid():
             form.save()
-            # if is_ajax(), we just return the validated form, so the modal will close
-        return HttpResponseRedirect('/addcomplete/')
+            result['status'] = 'success'
+        #return HttpResponseRedirect('/addcomplete/')
     else:
         form = CommentFormUpdateDB(instance=comment)
 
-    return render(request, template_name, {'comment':comment,'expert': expert,'form': form,})
+    return render(request, template_name, {'comment':comment,'expert': expert,'form': form,'result':result})
 
 
 def workexp_detail(request, eid, ename):
@@ -242,16 +249,17 @@ def workexp_detail_update(request, eid, expid):
     template_name = 'experts/workexp_detail_update.html'
     expert = get_object_or_404(ExpertInfo, eid=eid)
     workexp = get_object_or_404(WorkExp, expid=expid)
-
+    result = {}
     if request.method == 'POST':
         form = WorkexpFormUpdateDB(instance=workexp, data=request.POST)
         if form.is_valid():
             form.save()
             # if is_ajax(), we just return the validated form, so the modal will close
-        return HttpResponseRedirect('/addcomplete/')
+            result['status'] = 'success'
+        #return HttpResponseRedirect('/addcomplete/')
     else:
         form = WorkexpFormUpdateDB(instance=workexp)
 
-    return render(request, template_name, {'workexp':workexp,'expert': expert,'form': form,})
+    return render(request, template_name, {'workexp':workexp,'expert': expert,'form': form,'result':result})
 
 

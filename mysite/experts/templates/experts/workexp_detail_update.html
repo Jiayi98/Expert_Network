@@ -2,8 +2,12 @@
 {% extends "experts/base.html" %}
 {% block content %}
     <br>
-   <h1> 更新{{ expert.ename }}信息</h1>
-    <br>
+    <h3> 更新{{ expert.ename }}的工作经历</h3>
+    {% if result.status == 'success' %}
+        <p style="align-content: center;color: green;font-size: medium">
+            <input type="button" class="btn btn-success" value="修改成功，返回专家列表" onclick="window.location.href='{% url 'expertinfolist' %}'">
+        </p>
+    {% endif %}
 
     <form action="{{ expert.get_workexp_update_url }}" method="post" name="workexp_detail_update">
         {% csrf_token %}
@@ -20,6 +24,7 @@
                  <button type="reset" class="btn btn-warning">重置</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                  <button type="submit" class="btn btn-success">更新</button>
         </div>
+
     </form>
 
 

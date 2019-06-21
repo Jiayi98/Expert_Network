@@ -31,6 +31,10 @@ class ExpertInfo(models.Model):
     def __str__(self):
         return "{}-{}".format(self.eid, self.ename)
 
+    def delete(self):
+        print("==============models.delete============",self.eid, self.ename, self.emobile)
+        return reverse('delete',args=[self.ename, self.emobile])
+
     def get_absolute_url(self):
         return reverse('expert_detail',args=[self.ename, self.emobile])
 

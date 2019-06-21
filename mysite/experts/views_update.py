@@ -8,6 +8,22 @@ from .forms_update import ExpertInfoFormUpdate
 from django.contrib.auth.decorators import login_required
 
 
+@login_required
+def expertInfoDelete(request):
+    #print("============用到了这个吗==========")
+    form = ExpertInfoFormUpdate()
+    return render(request, 'experts/delete_expert.html',{'form': form})
+
+
+def expertInfoDeleteFromDatabase(request):
+    print("!!!!!!!!!!!views.update.DELETE这里！!!!!!!!!")
+    form = ExpertInfoFormUpdate()
+    ename = request.POST["ename"]
+    expert_objs = ExpertInfo.objects.filter(ename=ename)
+    for obj in expert_objs:
+        print(obj.eid)
+
+    return render(request, 'experts/delete_expert.html', {'form': form,'expert_objs': expert_objs})
 
 
 """
@@ -28,7 +44,6 @@ def expertInfoUpdateToDatabase(request):
     for obj in expert_objs:
         print(obj.eid)
 
-    #return HttpResponseRedirect('/updateexpert/')
     return render(request, 'experts/update_expert.html', {'form': form,'expert_objs': expert_objs})
 
 

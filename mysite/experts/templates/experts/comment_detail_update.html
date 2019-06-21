@@ -1,7 +1,12 @@
 {% extends "experts/base.html" %}
 {% block content %}
     <br>
-   <h1> 更新{{ expert.ename }}信息</h1>
+   <h1> 更新{{ expert.ename }}的访谈信息</h1>
+    {% if result.status == 'success' %}
+        <p style="align-content: center;color: green;font-size: medium">
+            <input type="button" class="btn btn-success" value="修改成功，返回专家列表" onclick="window.location.href='{% url 'expertinfolist' %}'"></a>
+        </p>
+    {% endif %}
     <br>
 
     <form action="{{ comment.get_comment_update_url }}" method="post" name="comment_detail_update">
