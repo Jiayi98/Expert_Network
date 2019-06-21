@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import ExpertInfo,ExpertComments,WorkExp
-from .forms import ExpertInfoForm, CommentForm,WorkexpForm
+from .forms import ExpertInfoForm, CommentForm,WorkexpForm,deleteConfirmForm
 
 from .forms_update import ExpertInfoFormUpdateDB,CommentFormUpdateDB, WorkexpFormUpdateDB
 
@@ -21,6 +21,28 @@ def delete(request, ename, emobile):
     template_name = 'experts/delete.html'
     expert = get_object_or_404(ExpertInfo, ename=ename, emobile=emobile)
     return render(request, template_name, {'expert':expert,})
+
+def deleteConfirm(request):
+    print("=============views.deleteConfirm======")
+    template_name = 'experts/delete_confirm.html'
+    result = {}
+    form = deleteConfirmForm()
+    if request.method == 'POST' and request.POST:
+        print("==============进来了=")
+        ename = request.POST.get('ename')
+        eid = request.POST.get('eid')
+        try:
+            expert = ExpertInfo.objects.get( eid=eid)
+            print("==============要删除的是=",expert.ename, expert.eid)
+        except:
+            result['status'] = 'error'
+        else:
+
+            expert.delete()
+            print("==============要删除的是了")
+            result['status'] = 'success'
+
+    return render(request, template_name, {'form':form,'result':result})
 
 """
 EXPERTS INFORMATION

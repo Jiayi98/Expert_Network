@@ -88,3 +88,10 @@ class WorkexpForm(forms.ModelForm):
         for field_name in self.base_fields:
             field = self.base_fields[field_name]
             field.widget.attrs.update({"class":"form-control"})
+
+class deleteConfirmForm(forms.Form):
+    ename = forms.CharField(required=True)
+    eid = forms.IntegerField(required=True)
+    class Meta:
+        fields = ['ename','eid']
+

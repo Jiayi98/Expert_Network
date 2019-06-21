@@ -1,0 +1,25 @@
+{% extends "experts/base.html" %}
+    {% block content %}
+        <br>
+       <h4>再次确认被删除专家姓名与EID：</h4>
+
+        <input type="button" class="btn btn-info"  value="返回查看信息" onclick="javascript:history.go(-1);">
+        <br><br>
+        <form action="." method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <div class="pull-right col-sm-pull-11">
+                 <button type="reset" class="btn btn-warning">重置</button>
+                 <button type="submit" class="btn btn-success">确认</button>
+             </div>
+        </form>
+        {% if result.status == 'success' %}
+            <br>
+            <p style="align-content: center;color: green;font-size: medium">
+            <input type="button" class="btn btn-success" value="删除成功，返回专家列表" onclick="window.location.href='{% url 'expertinfolist' %}'"></a>
+            </p>
+        {% elif result.status == 'error' %}
+            <p style="align-content: center;color: orangered;font-size: medium">姓名或EID有误，请重新输入</p>
+        {% endif %}
+    {% endblock content %}
