@@ -14,7 +14,16 @@
         </div>
         <br>
         <button type="button" class="btn btn-info" onclick="window.location.href='{{ exp.get_workexp_update_url }}'">修改</button>&nbsp&nbsp&nbsp
-        <button type="button" class="btn btn-danger" onclick="window.location.href=''">删除</button><br><br>
+        <button type="button" class="btn btn-danger" onclick="location.href='{{ exp.delete_workexp }}'">删除</button><br><br>
         <br><br>
     {% endfor %}
+    {% if result.status == 'success'%}
+            <label class="sol-sm-2 control-label">时间： {{ exp.stime }} - {{ exp.etime }}</label>
+            <!--<li> 时间： {{ exp.stime }} - {{ exp.etime }} </li>-->
+            <li> 公司/部门： {{ exp.company }} - {{ exp.agency }} </li>
+            <li> 职位/职责： {{ exp.position }} - {{ exp.duty }} </li>
+            <li> 领域： {{ exp.area }} </li>
+            <br><br>
+            <button type="button" class="btn btn-danger" onclick="window.location.href='{{ exp.delete_workexp_confirm }}'">确认删除</button><br><br>
+    {% endif %}
 {% endblock content %}

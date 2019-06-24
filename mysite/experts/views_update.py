@@ -1,6 +1,6 @@
 # Create your views here.
 from django.shortcuts import render,get_object_or_404
-#from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse,HttpResponseRedirect
 from .models import ExpertInfo,ExpertComments,WorkExp
 #from .forms import ExpertInfoForm, CommentForm,WorkexpForm
 from .forms_update import ExpertInfoFormUpdate
@@ -47,7 +47,76 @@ def expertInfoUpdateToDatabase(request):
 
     return render(request, 'experts/update_expert.html', {'form': form,'expert_objs': expert_objs})
 
+# 6.24
+def delete_comment(request, eid, cmtid):
+    print("=============views_update.delete_comment======")
+    template_name = 'experts/comment_detail.html'
+    result = {}
+    try:
+        print("==============Try========")
+        expert = ExpertInfo.objects.get(eid=eid)
+        c = ExpertComments.objects.get(cmtid=cmtid)
+        print(expert,c)
+    except:
+        print("==============ERROR========")
+        result['status'] = 'error'
+    else:
+        result['status'] = 'success'
+        return render(request, template_name,{'c':c,'expert':expert,'result':result})
 
+def delete_comment_confirm(request, eid, cmtid):
+    print("=============views_update.delete_comment_confirm======")
+    template_name = 'experts/comment_detail.html'
+    result = {}
+    try:
+        print("==============Try========")
+        expert = ExpertInfo.objects.get(eid=eid)
+        c = ExpertComments.objects.get(cmtid=cmtid)
+        print(expert,c)
+    except:
+        print("==============ERROR========")
+        result['status'] = 'error'
+    else:
+        c.delete()
+        result['status'] = 'success'
+        return HttpResponseRedirect('/addcomplete/')
+
+    #return render(request, template_name,{'expert':expert,'result':result})
+
+def delete_workexp(request, eid, expid):
+    print("=============views_update.delete_workexp======")
+    template_name = 'experts/workexp_detail.html'
+    result = {}
+    try:
+        print("==============Try========")
+        expert = ExpertInfo.objects.get(eid=eid)
+        exp = WorkExp.objects.get(expid=expid)
+        print(expert,exp)
+    except:
+        print("==============ERROR========")
+        result['status'] = 'error'
+    else:
+        result['status'] = 'success'
+        return render(request, template_name,{'exp':exp,'expert':expert,'result':result})
+
+def delete_workexp_confirm(request, eid, expid):
+    print("=============views_update.delete_workexp_confirm======")
+    template_name = 'experts/workexp_detail.html'
+    result = {}
+    try:
+        print("==============Try========")
+        expert = ExpertInfo.objects.get(eid=eid)
+        exp = WorkExp.objects.get(expid=expid)
+        print(expert,exp)
+    except:
+        print("==============ERROR========")
+        result['status'] = 'error'
+    else:
+        exp.delete()
+        result['status'] = 'success'
+        return HttpResponseRedirect('/addcomplete/')
+
+    #return render(request, template_name,{'expert':expert,'result':result})
 
 """
 Comment

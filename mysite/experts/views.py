@@ -43,6 +43,8 @@ def delete_confirm(request, ename, emobile):
             else:
                 expert.delete()
                 result['status'] = 'success'
+                return HttpResponseRedirect('/addcomplete/')
+
         else:
             print("==============form is INVALID========")
     else:

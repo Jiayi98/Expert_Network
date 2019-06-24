@@ -74,6 +74,17 @@ class ExpertComments(models.Model):
         print(type(num))
         return reverse('comment_detail_update', args=[num,self.cmtid ])
 
+    def delete_comment(self):
+        print("==========在models.py中的 delete_comment()")
+        num = self.eid.eid
+        print(type(num))
+        return reverse('delete_comment', args=[num,self.cmtid ])
+
+    def delete_comment_confirm(self):
+        print("==========在models.py中的 delete_comment_confirm()")
+        num = self.eid.eid
+        print(type(num))
+        return reverse('delete_comment_confirm', args=[num,self.cmtid ])
     """
     def get_comment_url(self):
         return reverse('comment_detail',args=[self.eid,])
@@ -104,4 +115,16 @@ class WorkExp(models.Model):
         print("==========在models.py中的 get_workexp_update_url()")
         num = self.eid.eid
         print(type(num))
-        return reverse('workexp_detail_update', args=[num,self.expid ])
+        return reverse('workexp_detail_update', args=[num,self.expid])
+
+    def delete_workexp(self):
+        print("==========在models.py中的 delete_workexp()")
+        num = self.eid.eid
+        print(type(num))
+        return reverse('delete_workexp', args=[num,self.expid])
+
+    def delete_workexp_confirm(self):
+        print("==========在models.py中的 delete_workexp_confirm()")
+        num = self.eid.eid
+        print(type(num))
+        return reverse('delete_workexp_confirm', args=[num,self.expid])

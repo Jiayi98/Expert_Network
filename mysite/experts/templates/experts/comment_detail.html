@@ -13,7 +13,14 @@
         </div>
         <br>
         <button type="button" class="btn btn-info" onclick="window.location.href='{{ comment.get_comment_update_url }}'">修改</button>&nbsp&nbsp&nbsp
-        <button type="button" class="btn btn-danger" onclick="window.location.href=''">删除</button><br><br>
+        <button type="button" class="btn btn-danger" onclick="location.href='{{ comment.delete_comment }}'">删除</button><br><br>
         <br><br>
     {% endfor %}
+{% if result.status == 'success'%}
+            <label class="sol-sm-2 control-label">专家访谈</label>
+            <li> 访谈： {{ c.eproblem }} </li>
+            <li> 访谈详情： {{ c.ecomment }} </li>
+            <br><br>
+            <button type="button" class="btn btn-danger" onclick="window.location.href='{{ c.delete_comment_confirm }}'">确认删除</button><br><br>
+    {% endif %}
 {% endblock content %}
