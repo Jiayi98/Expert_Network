@@ -93,17 +93,16 @@ def addExpertToDatabase(request):
 
 @login_required
 def addComment(request):
-    formC = CommentForm()
+    #formC = CommentForm(request.POST)
     formI = ExpertInfoFormUpdate()
 
     ename = request.POST.get("ename")
     expert_objs = ExpertInfo.objects.filter(ename=ename)
     for obj in expert_objs:
         print(obj.eid)
-
-    return render(request, 'experts/addcomment.html', {'formC': formC,'formI':formI,'expert_objs':expert_objs})
-
-
+    return render(request, 'experts/addcomment.html', {'formI': formI, 'expert_objs': expert_objs})
+    #return render(request, 'experts/addcomment.html', {'formC': formC,'formI':formI,'expert_objs':expert_objs})
+"""
 @login_required
 def addCommentToDatabase(request):
     if request.method == "POST":
@@ -130,26 +129,52 @@ def addCommentToDatabase(request):
 
     else:
         return render(request, 'experts/addcomment.html')
+"""
 
+
+@login_required
+def add_comment(request,ename,emobile):
+    print("!!!!!!!!!!!!!!!!!!!", ename, emobile)
+    formC = CommentForm(data=request.POST)
+    eproblem = request.POST.get("eproblem")
+    ecomment = request.POST.get("ecomment")
+    try:
+        expert = ExpertInfo.objects.get(ename=ename, emobile=emobile)
+        print(expert.eid)
+    except:
+        print("!!!!!!!!!!!This expert not exist!!!!!!!!")
+        return HttpResponseRedirect('/addecomment/')
+    else:
+        print("----------Expert Exists----------")
+
+        if request.method == "POST":
+            print("----------进来了----------")
+            newComment = ExpertComments()
+            newComment.eid_id = expert.eid
+            newComment.eproblem = eproblem
+            newComment.ecomment = ecomment
+            newComment.save()
+            return HttpResponseRedirect('/addcomplete/')
+    return render(request, 'experts/addcomment_confirm.html', {"formC":formC})
 
 
 
 
 @login_required
 def addWorkexp(request):
-    formW = WorkexpForm()
+    #formW = WorkexpForm()
     formI = ExpertInfoFormUpdate()
 
     ename = request.POST.get("ename")
     expert_objs = ExpertInfo.objects.filter(ename=ename)
     for obj in expert_objs:
         print(obj.eid)
-
-    return render(request, 'experts/addworkexp.html', {'formW': formW, 'formI': formI, 'expert_objs': expert_objs})
-
-
+    return render(request, 'experts/addworkexp.html', {'formI': formI, 'expert_objs': expert_objs})
+    #return render(request, 'experts/addworkexp.html', {'formW': formW, 'formI': formI, 'expert_objs': expert_objs})
 
 
+
+"""
 @login_required
 def addWorkexpToDatabase(request):
 
@@ -190,6 +215,44 @@ def addWorkexpToDatabase(request):
 
     else:
         return render(request, 'addworkexp.html')
+"""
+@login_required
+def add_workexp(request,ename,emobile):
+    print("!!!!!!!!!!!!!!!!!!!", ename, emobile)
+    formW = WorkexpForm(data=request.POST)
+
+    stime = request.POST.get("stime")
+    etime = request.POST.get("etime")
+    company = request.POST.get("company")
+    agency = request.POST.get("agency")
+    position = request.POST.get("position")
+    duty = request.POST.get("duty")
+    area = request.POST.get("area")
+    #istonow = request.POST.get("istonow")
+    try:
+        expert = ExpertInfo.objects.get(ename=ename, emobile=emobile)
+        print(expert.eid)
+    except:
+        print("!!!!!!!!!!!This expert not exist!!!!!!!!")
+        return HttpResponseRedirect('/addecomment/')
+    else:
+        print("----------Expert Exists----------")
+
+        if request.method == "POST":
+            print("----------进来了----------")
+            newExp = WorkExp()
+            newExp.eid_id = expert.eid
+            newExp.stime = stime
+            newExp.etime = etime
+            newExp.company = company
+            newExp.agency = agency
+            newExp.position = position
+            newExp.duty = duty
+            newExp.area = area
+            #newExp.istonow = istonow
+            newExp.save()
+            return HttpResponseRedirect('/addcomplete/')
+    return render(request, 'experts/addworkexp_confirm.html', {"formW":formW})
 
 
 

@@ -50,23 +50,7 @@ class ExpertInfoFormUpdateDB(forms.ModelForm):
             field = self.base_fields[field_name]
             field.widget.attrs.update({"class":"form-control"})
 
-"""
-Comment
 
-class CommentFormUpdate(forms.ModelForm):
-    ename = forms.CharField(max_length=50, required=True)
-
-    class Meta:
-        # 有问题 ExpertComments？但是没有ename
-        model = ExpertInfo
-        fields = ('ename',)
-
-    def __init__(self, *args, **kwargs):
-        super(CommentFormUpdate, self).__init__(*args, **kwargs)
-        for field_name in self.base_fields:
-            field = self.base_fields[field_name]
-            field.widget.attrs.update({"class":"form-control"})
-"""
 #刚加的
 
 class CommentFormUpdateDB(forms.ModelForm):
@@ -83,24 +67,7 @@ class CommentFormUpdateDB(forms.ModelForm):
             field = self.base_fields[field_name]
             field.widget.attrs.update({"class":"form-control"})
 
-"""
-Workexp
 
-
-class WorkexpFormUpdate(forms.ModelForm):
-    ename = forms.CharField(max_length=50, required=True)
-
-    class Meta:
-        # 有问题 WorkExp？但是没有ename
-        model = ExpertInfo
-        fields = ('ename',)
-
-    def __init__(self, *args, **kwargs):
-        super(ExpertInfoFormUpdate, self).__init__(*args, **kwargs)
-        for field_name in self.base_fields:
-            field = self.base_fields[field_name]
-            field.widget.attrs.update({"class":"form-control"})
-"""
 class WorkexpFormUpdateDB(forms.ModelForm):
     stime = forms.DateField(required=False)
     etime = forms.DateField(required=False)

@@ -21,13 +21,13 @@
 
             {% for expert in expert_objs %}
             <p>
-                <a href="{% url 'expert_detail' expert.ename expert.emobile %}">{{ expert.ename }}</a>
+                <a href="{{ expert.add_workexp_url }}">{{ expert.ename }}</a>
                —— 手机: {{ expert.emobile }}&nbsp&nbsp&nbsp//&nbsp&nbsp&nbspAddtime: {{ expert.addtime }}
             </p>
             {% endfor %}
         </form>
 
-
+<!--
         <form action="/addworkexptodatabase/" method="post" name="addworkexp">
             {% csrf_token %}
             {% for field in formW %}
@@ -42,19 +42,7 @@
                 <button type="reset" class="btn btn-warning">重置</button>
                 <button type="submit" class="btn btn-success">添加</button>
             </div>
-<!--            ename: <input type="text" name="ename">-->
-<!--            emobile: <input type="text" name="emobile">-->
-<!--            stime: <input type="text" name="stime" value="1900-01-01">-->
-<!--            etime : <input type="text" name="etime" value="1900-01-01">-->
-<!--            company: <input type="text" name="company">-->
-<!--            agency: <input type="text" name="agency">-->
-<!--            position: <input type="text" name="position">-->
-<!--            duty: <input type="text" name="duty">-->
-<!--            area: <input type="text" name="area">-->
-<!--            istonow: <input type="text" name="istonow" value='0'>-->
-<!--             {{ form.as_p }}-->
-<!--             <input type="reset">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="add">-->
-        </form>
+        </form>-->
 
     {% endblock content %}
 

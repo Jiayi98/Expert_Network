@@ -45,8 +45,14 @@ class ExpertInfo(models.Model):
     def get_comment_url(self):
         return reverse('comment_detail',args=[self.eid, self.ename])
 
+    def add_comment_url(self):
+        return reverse('add_comment',args=[self.ename, self.emobile])
+
     def get_workexp_url(self):
         return reverse('workexp_detail',args=[self.eid, self.ename])
+
+    def add_workexp_url(self):
+        return reverse('add_workexp',args=[self.ename, self.emobile])
 
     def get_update_url(self):
         return reverse('expert_detail_update', args=[self.ename, self.emobile])

@@ -37,20 +37,21 @@ class ExpertInfoForm(forms.ModelForm):
 # 从ExpertInfo模型中动态地创建表单
 class CommentForm(forms.ModelForm):
 
-    ename = forms.CharField(max_length=50, required=True)
-    emobile = forms.CharField(max_length=50, required=True)
-    allExperts = ExpertInfo.objects.all()
+    #ename = forms.CharField(max_length=50, required=True)
+    #emobile = forms.CharField(max_length=50, required=True)
+    #allExperts = ExpertInfo.objects.all()
 
-    for exp in allExperts:
-        if(exp.ename==ename and exp.emobile==emobile):
-            eid = exp.eid
-            exp.eid.eproblem = forms.TextField(required=True)
-            exp.eid.ecomment = forms.TextField(required=True)
+    #for exp in allExperts:
+    #    if(exp.ename==ename and exp.emobile==emobile):
+    #        eid = exp.eid
+    #        exp.eid.eproblem = forms.TextField(required=True)
+    #        exp.eid.ecomment = forms.TextField(required=True)
 
 
     class Meta:
         model = ExpertComments
-        fields = ('ename','emobile','eproblem','ecomment')
+        #fields = ('ename','emobile','eproblem','ecomment')
+        fields = ('eproblem', 'ecomment')
 
     def __init__(self, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)
@@ -62,26 +63,27 @@ class CommentForm(forms.ModelForm):
 
 # 从ExpertInfo模型中动态地创建表单
 class WorkexpForm(forms.ModelForm):
-    ename = forms.CharField(max_length=50, required=True)
-    emobile = forms.CharField(max_length=50, required=True)
-    allExperts = ExpertInfo.objects.all()
-    for exp in allExperts:
-        if(exp.ename==ename and exp.emobile==emobile):
-            eid = exp.eid
-            exp.eid.stime = forms.DateField(required=False)
-            exp.eid.etime = forms.DateField(required=False)
-            exp.eid.company = forms.CharField(max_length=150,requried=False)
-            exp.eid.agency = forms.CharField(required=False)
-            exp.eid.position = forms.CharField(required=False)
-            exp.eid.duty = forms.CharField(required=False)
-            exp.eid.area = forms.CharField(required=False)
-            exp.eid.istonow = forms.IntegerField(required=False)
+    # ename = forms.CharField(max_length=50, required=True)
+    # emobile = forms.CharField(max_length=50, required=True)
+    # allExperts = ExpertInfo.objects.all()
+    # for exp in allExperts:
+    #     if(exp.ename==ename and exp.emobile==emobile):
+    #         eid = exp.eid
+    #         exp.eid.stime = forms.DateField(required=False)
+    #         exp.eid.etime = forms.DateField(required=False)
+    #         exp.eid.company = forms.CharField(max_length=150,requried=False)
+    #         exp.eid.agency = forms.CharField(required=False)
+    #         exp.eid.position = forms.CharField(required=False)
+    #         exp.eid.duty = forms.CharField(required=False)
+    #         exp.eid.area = forms.CharField(required=False)
+    #         exp.eid.istonow = forms.IntegerField(required=False)
 
     class Meta:
         model = WorkExp
-        fields = ('ename','emobile','stime','etime',
-                  'company','agency','position','duty',
-                  'area','istonow')
+        fields = ('stime', 'etime','company', 'agency', 'position', 'duty','area')
+        #fields = ('ename','emobile','stime','etime',
+        #          'company','agency','position','duty',
+        #          'area','istonow')
 
     def __init__(self, *args, **kwargs):
         super(WorkexpForm, self).__init__(*args, **kwargs)
