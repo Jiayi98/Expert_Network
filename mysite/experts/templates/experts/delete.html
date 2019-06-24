@@ -22,8 +22,8 @@
     <li> 添加时间： {{ expert.addtime }} </li>
     <br>
 
-        <!--<input type="button" class="btn btn-info" value="返回" onclick="window.location.href='{% url 'expertinfolist' %}'">-->
-        <input type="button" class="btn btn-info"  value="返回" onclick="javascript:history.go(-1);">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-        <input type="button" class="btn btn-danger" value="删除" onclick="window.location.href='{% url 'deleteconfirm' %}'"><br><br>
+        <input type="button" class="btn btn-info"  value="返回" onclick="javascript:history.go(-1);">
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        <input type="button" class="btn btn-danger" value="删除" onclick="window.location.href='{{ expert.delete_confirm_url }}'">
         <br><br>
 {% endblock content %}

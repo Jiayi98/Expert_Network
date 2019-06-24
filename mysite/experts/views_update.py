@@ -39,6 +39,7 @@ def expertInfoUpdate(request):
 def expertInfoUpdateToDatabase(request):
     print("!!!!!!!!!!!UPDATE这里！!!!!!!!!")
     form = ExpertInfoFormUpdate()
+
     ename = request.POST["ename"]
     expert_objs = ExpertInfo.objects.filter(ename=ename)
     for obj in expert_objs:

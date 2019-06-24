@@ -20,7 +20,7 @@
             <br>
 
             {% for expert in expert_objs %}
-                <h3> <a href="{{ expert.delete }}"> {{ expert.ename }}</a></h3>
+                <h3> <a href="{{ expert.myDelete }}"> {{ expert.ename }}</a></h3>
                 <p class="basic_info">EID: {{ expert.eid }}&nbsp&nbsp&nbsp//&nbsp&nbsp&nbspAddtime: {{ expert.addtime }}</p>
             {% endfor %}
 

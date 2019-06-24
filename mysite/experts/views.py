@@ -16,31 +16,37 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def base(request):
     return render(request, 'experts/base.html')
 
-def delete(request, ename, emobile):
+def myDelete(request, ename, emobile):
     print("=============views.DELETE======")
     template_name = 'experts/delete.html'
     expert = get_object_or_404(ExpertInfo, ename=ename, emobile=emobile)
-    return render(request, template_name, {'expert':expert,})
+    return render(request, 'experts/delete.html', {'expert':expert})
 
-def deleteConfirm(request):
-    print("=============views.deleteConfirm======")
+#def deleteConfirm(request):
+def delete_confirm(request, ename, emobile):
+    print("=============views.delete_confirm======")
     template_name = 'experts/delete_confirm.html'
     result = {}
-    form = deleteConfirmForm()
+    form = deleteConfirmForm(request.POST)
+    name = request.POST.get('ename')
+    mobile = request.POST.get('emobile')
     if request.method == 'POST' and request.POST:
         print("==============进来了=")
-        ename = request.POST.get('ename')
-        eid = request.POST.get('eid')
-        try:
-            expert = ExpertInfo.objects.get( eid=eid)
-            print("==============要删除的是=",expert.ename, expert.eid)
-        except:
-            result['status'] = 'error'
+        if form.is_valid():
+            try:
+                print("==============Try========")
+                expert = ExpertInfo.objects.get(ename=ename,emobile=emobile)
+                print(expert)
+            except:
+                print("==============ERROR========")
+                result['status'] = 'error'
+            else:
+                expert.delete()
+                result['status'] = 'success'
         else:
-
-            expert.delete()
-            print("==============要删除的是了")
-            result['status'] = 'success'
+            print("==============form is INVALID========")
+    else:
+        form = deleteConfirmForm(request.POST)
 
     return render(request, template_name, {'form':form,'result':result})
 
@@ -244,6 +250,7 @@ def comment_detail_update(request, eid, cmtid):
     result = {}
     if request.method == 'POST':
         form = CommentFormUpdateDB(instance=comment, data=request.POST)
+        #print("~~~~~~~~~~~~~~~~~~", form.is_valid())
         if form.is_valid():
             form.save()
             result['status'] = 'success'

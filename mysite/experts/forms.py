@@ -91,7 +91,14 @@ class WorkexpForm(forms.ModelForm):
 
 class deleteConfirmForm(forms.Form):
     ename = forms.CharField(required=True)
-    eid = forms.IntegerField(required=True)
+    emobile = forms.CharField(required=True)
     class Meta:
-        fields = ['ename','eid']
+        model = ExpertInfo
+        fields = ['ename','emobile']
 
+    def __init__(self, *args, **kwargs):
+        super(deleteConfirmForm, self).__init__(*args, **kwargs)
+        for field_name in self.base_fields:
+            print(field_name)
+            field = self.base_fields[field_name]
+            field.widget.attrs.update({"class":"form-control"})
