@@ -4,6 +4,9 @@
 {% block content %}
     <br><br>
     <h2>{{expert.ename}} - 访谈记录</h2>
+    <br>
+    <input type="button" class="btn btn-info"  value="返回查看信息" onclick="javascript:history.go(-1);">
+    <input type="button" class="btn btn-warning"  value="新建访谈" onclick="window.location.href='{% url 'addcomment' %}'">
     <br><br>
     {% for comment in comments %}
         <div class="expert_comment">

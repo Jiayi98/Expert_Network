@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import ExpertInfo,ExpertComments,WorkExp
 from .forms import ExpertInfoForm, CommentForm,WorkexpForm,deleteConfirmForm
 
-from .forms_update import ExpertInfoFormUpdateDB,CommentFormUpdateDB, WorkexpFormUpdateDB
+from .forms_update import ExpertInfoFormUpdateDB,CommentFormUpdateDB, WorkexpFormUpdateDB,ExpertInfoFormUpdate
 
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -93,8 +93,15 @@ def addExpertToDatabase(request):
 
 @login_required
 def addComment(request):
-    form = CommentForm()
-    return render(request, 'experts/addcomment.html', {'form': form})
+    formC = CommentForm()
+    formI = ExpertInfoFormUpdate()
+
+    ename = request.POST.get("ename")
+    expert_objs = ExpertInfo.objects.filter(ename=ename)
+    for obj in expert_objs:
+        print(obj.eid)
+
+    return render(request, 'experts/addcomment.html', {'formC': formC,'formI':formI,'expert_objs':expert_objs})
 
 
 @login_required
@@ -122,7 +129,7 @@ def addCommentToDatabase(request):
             return HttpResponseRedirect('/addcomplete/')
 
     else:
-        return render(request, 'addcomment.html')
+        return render(request, 'experts/addcomment.html')
 
 
 
@@ -130,8 +137,16 @@ def addCommentToDatabase(request):
 
 @login_required
 def addWorkexp(request):
-    form = WorkexpForm()
-    return render(request, 'experts/addworkexp.html',{'form': form})
+    formW = WorkexpForm()
+    formI = ExpertInfoFormUpdate()
+
+    ename = request.POST.get("ename")
+    expert_objs = ExpertInfo.objects.filter(ename=ename)
+    for obj in expert_objs:
+        print(obj.eid)
+
+    return render(request, 'experts/addworkexp.html', {'formW': formW, 'formI': formI, 'expert_objs': expert_objs})
+
 
 
 

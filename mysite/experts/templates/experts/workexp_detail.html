@@ -3,7 +3,11 @@
 {% block content %}
     <br><br>
     <h2>{{expert.ename}} - 工作经历</h2>
+    <br>
+    <input type="button" class="btn btn-info"  value="返回查看信息" onclick="javascript:history.go(-1);">
+    <input type="button" class="btn btn-warning"  value="新建访谈" onclick="window.location.href='{% url 'addworkexp' %}'">
     <br><br>
+
     {% for exp in workexps %}
         <div class="work_experience">
             <label class="sol-sm-2 control-label">时间： {{ exp.stime }} - {{ exp.etime }}</label>
