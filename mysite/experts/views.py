@@ -1,5 +1,6 @@
 from django.shortcuts import render
-
+from django.db.models import Q
+from itertools import chain
 # Create your views here.
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
@@ -371,4 +372,210 @@ def workexp_detail_update(request, eid, expid):
 
     return render(request, template_name, {'workexp':workexp,'expert': expert,'form': form,'result':result})
 
+def advanced_expert(request):
+    return render(request, 'experts/advanced_expert_search.html')
 
+def advanced_expert_search(request):
+    template_name = 'experts/advanced_expert_search_result.html'
+    name = request.GET.get('name')
+    sex =request.GET.get('sex')
+    location =request.GET.get('location')
+    trade = request.GET.get('trade')
+    subtrade = request.GET.get('subtrade')
+    company = request.GET.get('company')
+    agency = request.GET.get('agency')
+    position = request.GET.get('position')
+    duty = request.GET.get('duty')
+    area = request.GET.get('area')
+    #temp = [name,sex,location,trade,subtrade,company,agency,position,duty,area]
+    empty_list_for_workexp = []
+    empty_list_for_expertinfo = []
+
+
+    if not name:
+        name = ''
+        empty_list_for_expertinfo.append('name')
+    if not sex:
+        sex = ''
+        empty_list_for_expertinfo.append('sex')
+    if not location:
+        location=''
+        empty_list_for_expertinfo.append('location')
+    if not trade:
+        trade = ''
+        empty_list_for_expertinfo.append('trade')
+    if not subtrade:
+        subtrade = ''
+        empty_list_for_expertinfo.append('subtrade')
+
+    if not company:
+        company = ''
+        empty_list_for_workexp.append('company')
+    if not agency:
+        agency = ''
+        empty_list_for_workexp.append('agency')
+    if not position:
+        position = ''
+        empty_list_for_workexp.append('position')
+    if not duty:
+        duty =''
+        empty_list_for_workexp.append('duty')
+    if not area:
+        area = ''
+        empty_list_for_workexp.append('area')
+
+    expert_list1 = []
+    expert_list2 = []
+    result_list1 = ExpertInfo.objects.filter(ename__contains=name, esex__contains=sex,
+                                             etrade__contains=trade,esubtrade__contains=subtrade,
+                                             elocation__contains=location
+                                             )
+    result_list2 = WorkExp.objects.filter(company__contains=company, agency__contains=agency,
+                                        position__contains=position,duty__contains=duty,
+                                        area__contains=area
+                                        )
+    items = chain(result_list1, result_list2)
+
+    for item in items:
+        if type(item) is ExpertInfo:
+            print("---EXPERTINFO: ", item.eid)
+            expert_list1.append(item)
+        else:
+            print("---WorkExp: ", item.eid)
+            eid = None
+            if type(item.eid) is ExpertInfo:
+                eid = item.eid.eid
+            else:
+                eid = item.eid
+            expert = ExpertInfo.objects.get(eid=eid)
+            expert_list2.append(expert)
+    if len(empty_list_for_expertinfo) == 5:
+        print("No constraints for expertinfo")
+        expert_list = expert_list2
+        for exp in expert_list2:
+            print(exp)
+    elif len(empty_list_for_workexp) == 5:
+        print("No constraints for workexp")
+        expert_list = expert_list1
+        for exp in expert_list1:
+            print(exp)
+    else:
+        print("都有要求取交集")
+        for exp1 in expert_list1:
+            print(exp1)
+        print("-----------")
+        for exp2 in expert_list2:
+            print(exp2)
+        expert_list = [val for val in expert_list1 if val in expert_list2]
+
+    return render(request, template_name, {'expert_list': expert_list})
+
+
+def search_expert(request):
+    q = request.GET.get('q')
+    error_msg = ''
+    print("========== 搜索关键词： ",q)
+    if not q:
+        error_msg = '请输入关键词'
+        return render(request, 'experts/base.html', {'error_msg': error_msg})
+    expert_list = []
+    result_list1 =[]
+    result_list2 = []
+    result_list3 = []
+    if isContainChinese(q):
+        result_list1 = ExpertInfo.objects.filter(
+
+                                            Q(ename__contains=q) |
+                                            Q(esex__contains=q)|
+                                            Q(emobile__contains=q) |
+                                            Q(eemail__contains=q)|
+                                            Q(etrade__contains=q) |
+                                            Q(esubtrade__contains=q)|
+                                            Q(ebirthday__contains=q) |
+                                            Q(elandline__contains=q) |
+                                            Q(elocation__contains=q) |
+                                            Q(estate__contains=q) |
+                                            Q(ecomefrom__contains=q) |
+                                            Q(eremark__contains=q) |
+                                            Q(addtime__contains=q)
+                                         )
+
+
+        result_list2 = ExpertComments.objects.filter(
+                                                 Q(eproblem__contains=q) | Q(ecomment__contains=q))
+
+        result_list3 = WorkExp.objects.filter(
+                                          Q(company__contains=q) |
+                                          Q(agency__contains=q) |
+                                          Q(position__contains=q) |
+                                          Q(duty__contains=q) |
+                                          Q(area__contains=q)
+                                          )
+
+    else:
+
+        result_list1 = ExpertInfo.objects.filter(Q(ename__icontains=q) |
+                                                Q(esex__icontains=q)|
+                                                Q(emobile__icontains=q) |
+                                                Q(eemail__icontains=q)|
+                                                Q(etrade__icontains=q) |
+                                                Q(esubtrade__icontains=q)|
+                                                Q(ebirthday__icontains=q) |
+                                                Q(elandline__icontains=q) |
+                                                Q(elocation__icontains=q) |
+                                                Q(estate__icontains=q) |
+                                                Q(ecomefrom__icontains=q) |
+                                                Q(eremark__icontains=q) |
+                                                Q(addtime__icontains=q)
+                                                )
+
+        result_list2 = ExpertComments.objects.filter(Q(eproblem__icontains=q) | Q(ecomment__icontains=q))
+
+        result_list3 = WorkExp.objects.filter(
+                                              Q(company__icontains=q) |
+                                              Q(agency__icontains=q) |
+                                              Q(position__icontains=q) |
+                                              Q(duty__icontains=q) |
+                                              Q(area__icontains=q)
+                                            )
+
+    items = chain(result_list1, result_list2, result_list3)
+
+    for item in items:
+        if type(item) is ExpertInfo:
+            print("---EXPERTINFO: ", item.eid)
+            expert_list.append(item)
+        elif item is ExpertComments:
+            print("---ExpertComments: ", item.eid)
+            if type(item.eid) is ExpertInfo:
+                eid = item.eid.eid
+            else:
+                eid = item.eid
+            expert = ExpertInfo.objects.get(eid=eid)
+            expert_list.append(expert)
+        else:
+            print("---WorkExp: ", item.eid)
+            eid = None
+            if type(item.eid) is ExpertInfo:
+                eid = item.eid.eid
+            else:
+                eid = item.eid
+            expert = ExpertInfo.objects.get(eid=eid)
+            expert_list.append(expert)
+    """
+    paginator = Paginator(expert_list, 3)
+    page = request.GET.get('page')
+    try:
+        expert_list = paginator.page(page)
+    except PageNotAnInteger:
+        expert_list = paginator.page(1)
+    except EmptyPage:
+        expert_list = paginator.page(paginator.num_pages)
+    """
+    return render(request, 'experts/search_expert_results.html', {'error_msg': error_msg,'expert_list': expert_list})
+
+def isContainChinese(s):
+    for c in s:
+        if ('\u4e00' <= c <= '\u9fa5'):
+            return True
+    return False

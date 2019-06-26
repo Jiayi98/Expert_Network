@@ -73,6 +73,10 @@ urlpatterns = [
     path('deleteworkexpconfirm/<int:eid>/<int:expid>/', update_views.delete_workexp_confirm, name='delete_workexp_confirm'),
     path('deletecommentconfirm/<int:eid>/<int:cmtid>/', update_views.delete_comment_confirm, name='delete_comment_confirm'),
 
+    path('search_expert/', experts_views.search_expert, name='search_expert'),
+    path('advanced_expert_search/', experts_views.advanced_expert_search, name='advanced_expert_search'),
+    path('advanced_expert/', experts_views.advanced_expert, name='advanced_expert'),
+
     path('', include('experts.urls')),
     path('', include('users.urls')),
 

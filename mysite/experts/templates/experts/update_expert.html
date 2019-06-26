@@ -3,7 +3,6 @@
         <br>
         <h1>更新专家信息</h1>
         <br>
-        <h3>POST方式</h3>
         <form action="/expertinfoupdatetodatabase/" class="form-horizontal" method="post" name="expertinfoupdatetodatabase">
             {% csrf_token %}
             {% for field in form %}
@@ -14,7 +13,7 @@
                     </div>
                 </div>
             {% endfor %}
-            <div class="pull-right col-sm-pull-11">
+            <div class="pull-right btn-group btn-group-sm">
                  <button type="reset" class="btn btn-warning">重置</button>
                  <button type="submit" class="btn btn-success">确认</button>
              </div>

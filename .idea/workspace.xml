@@ -2,17 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f7661534-a636-42a7-9b83-261dd7acf8eb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/mysite/experts/templates/experts/addcomment_confirm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysite/experts/templates/experts/addworkexp_confirm.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysite/experts/templates/experts/advanced_expert_search.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysite/experts/templates/experts/advanced_expert_search_result.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysite/experts/templates/experts/search_expert_results.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/experts/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/experts/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/experts/forms_update.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/experts/forms_update.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/experts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/experts/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/experts/templates/experts/addcomment.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/experts/templates/experts/addcomment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/experts/templates/experts/addworkexp.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/experts/templates/experts/addworkexp.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/experts/templates/experts/workexp_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/experts/templates/experts/workexp_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/experts/templates/experts/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/experts/templates/experts/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/experts/templates/experts/delete_expert.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/experts/templates/experts/delete_expert.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/experts/templates/experts/expertinfo_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/experts/templates/experts/expertinfo_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/experts/templates/experts/update_expert.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/experts/templates/experts/update_expert.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/experts/templates/experts/update_workexp.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/experts/templates/experts/update_workexp.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysite/experts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/experts/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysite/mysite/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/mysite/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/users/templates/users/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/users/templates/users/dashboard.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,102 +24,87 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/mysite/urls.py">
+        <entry file="file://$PROJECT_DIR$/mysite/experts/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="48" column="97" selection-start-line="48" selection-start-column="97" selection-end-line="48" selection-end-column="97" />
+            <state relative-caret-position="434">
+              <caret line="574" column="17" selection-start-line="574" selection-start-column="17" selection-end-line="574" selection-end-column="17" />
               <folding>
-                <element signature="e#630#662#0" expanded="true" />
+                <element signature="e#0#35#0" expanded="true" />
+                <element signature="e#633#676#0" />
+                <element signature="e#721#945#0" />
+                <element signature="e#1025#2026#0" />
+                <element signature="e#2028#2055#1" />
+                <element signature="e#2102#2194#0" />
+                <element signature="e#2251#3185#0" />
+                <element signature="e#3242#3671#0" />
+                <element signature="e#3672#4709#1" />
+                <element signature="e#4772#5656#0" />
+                <element signature="e#5706#6127#0" />
+                <element signature="e#6131#7562#1" />
+                <element signature="e#7623#8909#0" />
+                <element signature="e#8966#9017#0" />
+                <element signature="e#9504#10028#0" />
+                <element signature="e#10086#10703#0" />
+                <element signature="e#10752#11150#0" />
+                <element signature="e#11210#12015#0" />
+                <element signature="e#12063#12388#0" />
+                <element signature="e#12448#13193#0" />
+                <element signature="e#13361#16241#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/experts/forms.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="334">
-              <caret line="82" column="81" selection-start-line="82" selection-start-column="81" selection-end-line="82" selection-end-column="81" />
-              <folding>
-                <element signature="e#0#24#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/experts/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="445">
-              <caret line="54" column="34" selection-start-line="54" selection-start-column="34" selection-end-line="54" selection-end-column="34" />
-              <folding>
-                <element signature="e#27#55#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/workexp_detail.html">
+        <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/pagination.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
-              <caret line="2" column="19" lean-forward="true" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+              <caret line="2" column="27" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/expertinfo_list.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/search_expert_results.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="19" column="73" selection-start-line="19" selection-start-column="73" selection-end-line="19" selection-end-column="73" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/advanced_expert_search_result.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/advanced_expert_search.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" column="19" lean-forward="true" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/mysite/experts/views.py">
+        <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="25">
-              <caret line="218" column="15" lean-forward="true" selection-start-line="218" selection-start-column="15" selection-end-line="218" selection-end-column="15" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/addworkexp.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="18" lean-forward="true" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/addworkexp_confirm.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/addcomment.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-46">
-              <caret line="13" column="26" lean-forward="true" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/addcomment_confirm.html">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/experts/forms_update.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="69" selection-start-line="69" selection-end-line="69" />
-              <folding>
-                <element signature="e#0#24#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="29">
+              <caret line="120" lean-forward="true" selection-start-line="120" selection-end-line="120" />
             </state>
           </provider>
         </entry>
@@ -135,9 +121,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>expert_Detail_update</find>
-      <find>专家访谈</find>
-      <find>updatecomment</find>
       <find>expertInfoUpdateToDatabase</find>
       <find>expertInfoUpdate</find>
       <find>comment_detail_update</find>
@@ -165,6 +148,9 @@
       <find>ExpertInfoFormUpdate</find>
       <find>expert_DE</find>
       <find>java</find>
+      <find>contians</find>
+      <find>dashboard</find>
+      <find>expertinfolist</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -184,17 +170,11 @@
         <option value="$PROJECT_DIR$/mysite/experts/templates/experts/pagination.html" />
         <option value="$PROJECT_DIR$/mysite/experts/templates/experts/addexpert.html" />
         <option value="$PROJECT_DIR$/mysite/experts/templates/experts/update_expert_list.html" />
-        <option value="$PROJECT_DIR$/mysite/experts/templates/experts/expertinfo_list.html" />
-        <option value="$PROJECT_DIR$/mysite/experts/templates/experts/update_expert.html" />
         <option value="$PROJECT_DIR$/mysite/experts/templates/experts/expert_detail_update.html" />
-        <option value="$PROJECT_DIR$/mysite/experts/templates/experts/update_workexp.html" />
         <option value="$PROJECT_DIR$/mysite/experts/templates/experts/update_comment.html" />
         <option value="$PROJECT_DIR$/mysite/experts/templates/experts/expert_detail.html" />
-        <option value="$PROJECT_DIR$/mysite/experts/templates/experts/base.html" />
         <option value="$PROJECT_DIR$/mysite/experts/templates/experts/workexp_detail_update.html" />
         <option value="$PROJECT_DIR$/mysite/experts/templates/experts/comment_detail_update.html" />
-        <option value="$PROJECT_DIR$/mysite/experts/templates/experts/delete.html" />
-        <option value="$PROJECT_DIR$/mysite/experts/templates/experts/delete_expert.html" />
         <option value="$PROJECT_DIR$/mysite/experts/templates/experts/add_complete.html" />
         <option value="$PROJECT_DIR$/mysite/experts/templates/experts/delete_confirm.html" />
         <option value="$PROJECT_DIR$/mysite/experts/views_update.py" />
@@ -205,16 +185,27 @@
         <option value="$PROJECT_DIR$/mysite/experts/templates/experts/addworkexp_confirm.html" />
         <option value="$PROJECT_DIR$/mysite/experts/templates/experts/addworkexp.html" />
         <option value="$PROJECT_DIR$/mysite/experts/models.py" />
-        <option value="$PROJECT_DIR$/mysite/mysite/urls.py" />
         <option value="$PROJECT_DIR$/mysite/experts/templates/experts/workexp_detail.html" />
         <option value="$PROJECT_DIR$/mysite/experts/forms.py" />
+        <option value="$PROJECT_DIR$/mysite/experts/templates/experts/expertinfo_list.html" />
+        <option value="$PROJECT_DIR$/mysite/experts/templates/experts/search_expert.html" />
+        <option value="$PROJECT_DIR$/mysite/experts/templates/experts/update_workexp.html" />
+        <option value="$PROJECT_DIR$/mysite/experts/templates/experts/delete_expert.html" />
+        <option value="$PROJECT_DIR$/mysite/experts/templates/experts/update_expert.html" />
+        <option value="$PROJECT_DIR$/mysite/experts/templates/experts/delete.html" />
+        <option value="$PROJECT_DIR$/mysite/users/templates/users/dashboard.html" />
+        <option value="$PROJECT_DIR$/mysite/mysite/urls.py" />
+        <option value="$PROJECT_DIR$/mysite/experts/templates/experts/advanced_expert_search.html" />
+        <option value="$PROJECT_DIR$/mysite/experts/templates/experts/advanced_expert_search_result.html" />
+        <option value="$PROJECT_DIR$/mysite/experts/templates/experts/search_expert_results.html" />
         <option value="$PROJECT_DIR$/mysite/experts/views.py" />
+        <option value="$PROJECT_DIR$/mysite/experts/templates/experts/base.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="129" />
-    <option name="y" value="70" />
+    <option name="x" value="28" />
+    <option name="y" value="23" />
     <option name="width" value="1389" />
     <option name="height" value="830" />
   </component>
@@ -268,6 +259,21 @@
               <item name="Expert_Network" type="b2602c69:ProjectViewProjectNode" />
               <item name="Expert_Network" type="462c0819:PsiDirectoryNode" />
               <item name="mysite" type="462c0819:PsiDirectoryNode" />
+              <item name="users" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Expert_Network" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Expert_Network" type="462c0819:PsiDirectoryNode" />
+              <item name="mysite" type="462c0819:PsiDirectoryNode" />
+              <item name="users" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Expert_Network" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Expert_Network" type="462c0819:PsiDirectoryNode" />
+              <item name="mysite" type="462c0819:PsiDirectoryNode" />
+              <item name="users" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="users" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -353,17 +359,20 @@
       <workItem from="1560919495848" duration="13380000" />
       <workItem from="1561002754907" duration="19235000" />
       <workItem from="1561083112613" duration="10504000" />
-      <workItem from="1561342700532" duration="18734000" />
+      <workItem from="1561342700532" duration="19143000" />
+      <workItem from="1561434096299" duration="2372000" />
+      <workItem from="1561467517108" duration="14971000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="125421000" />
+    <option name="totallyTimeSpent" value="143173000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="129" y="70" width="1389" height="830" extended-state="0" />
+    <frame x="28" y="23" width="1389" height="830" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19673347" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.03192279" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -431,18 +440,6 @@
     <SUITE FILE_PATH="coverage/Expert_Network$views.coverage" NAME="views Coverage Results" MODIFIED="1560340776565" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysite/experts" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/mysite/experts/static/main.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/experts/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#31#63#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/experts/apps.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -505,45 +502,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/users/templates/users/dashboard.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/mysite/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="505">
-          <caret line="130" column="36" selection-start-line="130" selection-start-column="36" selection-end-line="130" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/pagination.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="27" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/update_expert_list.html" />
-    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/expertinfo_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="26" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1200">
-          <caret line="80" column="1" selection-start-line="80" selection-start-column="1" selection-end-line="80" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/update_workexp.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="23" column="51" selection-start-line="23" selection-start-column="51" selection-end-line="23" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/expert_detail_update.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -580,24 +539,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/update_comment.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="27" column="83" selection-start-line="27" selection-start-column="83" selection-end-line="27" selection-end-column="83" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/users/templates/users/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" column="20" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/delete_expert.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="18" column="19" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -615,13 +560,6 @@
           <folding>
             <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/delete.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="36" lean-forward="true" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -645,17 +583,144 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/comment_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/experts/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1215">
+          <caret line="82" column="81" selection-start-line="82" selection-start-column="81" selection-end-line="82" selection-end-column="81" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/addcomment_confirm.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/experts/forms_update.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="69" selection-start-line="69" selection-end-line="69" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/mysite/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1845">
+          <caret line="130" column="36" selection-start-line="130" selection-start-column="36" selection-end-line="130" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/addworkexp.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/addworkexp_confirm.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/experts/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="111" selection-start-line="111" selection-end-line="111" />
+          <folding>
+            <element signature="e#27#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/expert_detail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-61">
+        <state relative-caret-position="15">
           <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/experts/views_update.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="17" column="42" lean-forward="true" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="42" />
+          <folding>
+            <element signature="e#26#79#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/update_comment.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="18" column="61" selection-start-line="18" selection-start-column="61" selection-end-line="18" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/update_workexp.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="19" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/update_expert.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="15" selection-start-line="32" selection-start-column="15" selection-end-line="32" selection-end-column="15" />
+        <state relative-caret-position="195">
+          <caret line="13" column="22" lean-forward="true" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/delete_expert.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="11" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/users/templates/users/dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/delete.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/workexp_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/search_expert.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/addcomment.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="26" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -666,101 +731,85 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/comment_detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/experts/forms_update.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="69" selection-start-line="69" selection-end-line="69" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/addcomment.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-46">
-          <caret line="13" column="26" lean-forward="true" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/addcomment_confirm.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/addworkexp_confirm.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/experts/views_update.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="45" column="22" selection-start-line="45" selection-start-column="22" selection-end-line="45" selection-end-column="22" />
-          <folding>
-            <element signature="e#26#79#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/mysite/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="48" column="97" selection-start-line="48" selection-start-column="97" selection-end-line="48" selection-end-column="97" />
+        <state relative-caret-position="-160">
+          <caret line="52" lean-forward="true" selection-start-line="52" selection-end-line="52" />
           <folding>
             <element signature="e#630#662#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/addworkexp.html">
+    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/advanced_expert_search.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="18" lean-forward="true" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+        <state relative-caret-position="15">
+          <caret line="1" column="19" lean-forward="true" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/experts/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="82" column="81" selection-start-line="82" selection-start-column="81" selection-end-line="82" selection-end-column="81" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/experts/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="54" column="34" selection-start-line="54" selection-start-column="34" selection-end-line="54" selection-end-column="34" />
-          <folding>
-            <element signature="e#27#55#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/workexp_detail.html">
+    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/pagination.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
-          <caret line="2" column="19" lean-forward="true" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+          <caret line="2" column="27" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/search_expert_results.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="73" selection-start-line="19" selection-start-column="73" selection-end-line="19" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/advanced_expert_search_result.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mysite/experts/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="218" column="15" lean-forward="true" selection-start-line="218" selection-start-column="15" selection-end-line="218" selection-end-column="15" />
+        <state relative-caret-position="434">
+          <caret line="574" column="17" selection-start-line="574" selection-start-column="17" selection-end-line="574" selection-end-column="17" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#633#676#0" />
+            <element signature="e#721#945#0" />
+            <element signature="e#1025#2026#0" />
+            <element signature="e#2028#2055#1" />
+            <element signature="e#2102#2194#0" />
+            <element signature="e#2251#3185#0" />
+            <element signature="e#3242#3671#0" />
+            <element signature="e#3672#4709#1" />
+            <element signature="e#4772#5656#0" />
+            <element signature="e#5706#6127#0" />
+            <element signature="e#6131#7562#1" />
+            <element signature="e#7623#8909#0" />
+            <element signature="e#8966#9017#0" />
+            <element signature="e#9504#10028#0" />
+            <element signature="e#10086#10703#0" />
+            <element signature="e#10752#11150#0" />
+            <element signature="e#11210#12015#0" />
+            <element signature="e#12063#12388#0" />
+            <element signature="e#12448#13193#0" />
+            <element signature="e#13361#16241#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/expertinfo_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/experts/templates/experts/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="29">
+          <caret line="120" lean-forward="true" selection-start-line="120" selection-end-line="120" />
         </state>
       </provider>
     </entry>

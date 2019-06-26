@@ -53,6 +53,7 @@
               </div>
             {% endfor %}
           {% endif %}
+
           {% block content %}
             <br>
             <h1>Experts Network</h1>
@@ -60,38 +61,88 @@
         </div>
         <div class="col-md-4">
           <div class="content-section">
-            <h3>Our Sidebar</h3>
-            <p class='text-muted'>You can put any information here you'd like.
+            <!--<h3>Our Sidebar</h3>-->
+            <p class='text-muted'>
+                <!--You can put any information here you'd like.-->
+              <br>
               <ul class="list-group">
-              <li class="list-group-item list-group-item-light"><a href="/">Search</a></li>
+                <li class="list-group-item list-group-item-light">
+                  Search
+                    <br>
+                  <form method="get" action="{% url 'search_expert' %}">
+                    {% csrf_token %}
+                      <input type="search" class="btn" name='q' placeholder="搜索" required>
+                      <button type="submit" class="btn btn-success">搜索</button>
+                  </form>
+                  {% if error_msg %}
+                    {{error_msg}}
+                  {% endif %}
+                </li>
 
               <li class="list-group-item list-group-item-light">
-                  Update
+                  Advanced Search
                   <br>
-                  <a href="{% url 'deleteexpert' %}">删除专家&nbsp&nbsp&nbsp</a>
+                  <a href="{% url 'advanced_expert'%}" class="btn btn-info">高级搜索</a>
 
-              </li>
-              <li class="list-group-item list-group-item-light">
-                  Delete
-                  <br>
-                  <a href="{% url 'updateexpert' %}">更新专家信息&nbsp&nbsp&nbsp</a>
-              </li>
-                <li class="list-group-item list-group-item-light" %}">
+                  <!--
+                  <form method="get" action="{% url 'search_expert' %}">
+                    {% csrf_token %}
+                      <input type="search" class="btn" name='name' placeholder="姓名" required>
+                      <input type="search" class="btn" name='sex' placeholder="性别" required>
+                      <input type="search" class="btn" name='location' placeholder="城市" required>
+                      <input type="search" class="btn" name='trade' placeholder="行业" required>
+                      <input type="search" class="btn" name='subtrade' placeholder="子行业" required>
+                      <input type="search" class="btn" name='company' placeholder="公司" required>
+                      <input type="search" class="btn" name='agency' placeholder="部门" required>
+                      <input type="search" class="btn" name='position' placeholder="职位" required>
+                      <input type="search" class="btn" name='duty' placeholder="工作职责" required>
+                      <input type="search" class="btn" name='area' placeholder="专业领域" required>
+                    <button type="submit" class="btn btn-success">搜索</button>
+                  </form>
+
+
+
+                  {% if error_msg %}
+                    {{error_msg}}
+                  {% endif %}-->
+                </li>
+
+                <li class="list-group-item list-group-item-light">
                     Insert
                     <br>
-                    <a href="{% url 'addexpert'%}">添加专家&nbsp&nbsp&nbsp</a>
+                    <!--<input type="button" value="添加专家" href="{% url 'addexpert'%}" class="btn btn-info"></input>&nbsp&nbsp&nbsp
+                    <input type="button" value="添加访谈" href="{% url 'addcomment'%}" class="btn btn-info"></input>&nbsp&nbsp&nbsp
+                    <input type="button" value="添加经历" href="{% url 'addworkexp'%}" class="btn btn-info"></input>
+                    -->
 
-                    <a href="{% url 'addcomment'%}">添加访谈&nbsp&nbsp&nbsp</a>
+                    <a href="{% url 'addexpert'%}" class="btn btn-info">添加专家</a>
 
-                    <a href="{% url 'addworkexp'%}">添加经历</a>
+                    <a href="{% url 'addcomment'%}" class="btn btn-info">添加访谈</a>
+
+                    <a href="{% url 'addworkexp'%}" class="btn btn-info">添加经历</a>
                 </li>
+
+                <li class="list-group-item list-group-item-light">
+                  Delete
+                  <br>
+                  <a href="{% url 'deleteexpert' %}" class="btn btn-danger">删除专家信息</a>
+
+                </li>
+
+                <li class="list-group-item list-group-item-light">
+                  Update
+                  <br>
+                  <a href="{% url 'updateexpert' %}" class="btn btn-warning">更新专家信息</a>
+                  <!--<a href="{% url 'updateexpert' %}">更新专家信息&nbsp&nbsp&nbsp</a>-->
+                </li>
+
               </ul>
             </p>
           </div>
         </div>
       </div>
     </main>
-
+    <br><br><br><br>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

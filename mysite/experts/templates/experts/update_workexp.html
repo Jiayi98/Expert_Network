@@ -3,7 +3,7 @@
         <br>
         <h1>更新工作经历</h1>
         <br>
-        <h3>POST方式</h3>
+
         <form action="/expertinfoupdatetodatabase/" class="form-horizontal" method="post" name="expertinfoupdatetodatabase">
             {% csrf_token %}
             {% for field in form %}
@@ -14,14 +14,14 @@
                     </div>
                 </div>
             {% endfor %}
-            <div class="pull-right col-sm-pull-11">
+            <div class="pull-right btn-group btn-group-sm">
                  <button type="reset" class="btn btn-warning">重置</button>
                  <button type="submit" class="btn btn-success">确认</button>
              </div>
             <br>
 
             {% for expert in expert_objs %}
-                <h3> <a href="{{ expert.get_workexp_update_url }}"> {{ expert.ename }}</a></h3>
+                <h5> <a href="{{ expert.get_workexp_update_url }}"> {{ expert.ename }}</a></h5>
                 <p class="basic_info">EID: {{ expert.eid }}&nbsp&nbsp&nbsp//&nbsp&nbsp&nbspAddtime: {{ expert.addtime }}</p>
             {% endfor %}
 

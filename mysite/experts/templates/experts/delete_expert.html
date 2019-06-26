@@ -13,12 +13,22 @@
                     </div>
                 </div>
             {% endfor %}
+            <div class="pull-right btn-group btn-group-sm">
+                <button type="reset" class="btn btn-warning">重置</button>
+                <button type="submit" class="btn btn-success">确认</button>
+        <!--
+        <input type="button" class="btn btn-info"  value="返回" onclick="javascript:history.go(-1);">
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        <input type="button" class="btn btn-danger" value="删除" onclick="window.location.href='{{ expert.delete_confirm_url }}'">
+        -->
+            </div>
+            <!--
             <div class="pull-right col-sm-pull-11">
                  <button type="reset" class="btn btn-warning">重置</button>
                  <button type="submit" class="btn btn-success">确认</button>
              </div>
             <br>
-
+            -->
             {% for expert in expert_objs %}
                 <h3> <a href="{{ expert.myDelete }}"> {{ expert.ename }}</a></h3>
                 <p class="basic_info">EID: {{ expert.eid }}&nbsp&nbsp&nbsp//&nbsp&nbsp&nbspAddtime: {{ expert.addtime }}</p>
