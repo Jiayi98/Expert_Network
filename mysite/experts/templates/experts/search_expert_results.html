@@ -10,7 +10,8 @@
     {% for expert in expert_list %}
          <div>
             <p> <a href="{{ expert.get_absolute_url }}"> {{ expert.ename }}</a>
-            ——EID: {{ expert.eid }}&nbsp&nbsp&nbsp//&nbsp&nbsp&nbspAddtime: {{ expert.addtime }}</p>
+            ——EID: {{ expert.eid }}&nbsp&nbsp&nbsp//&nbsp&nbsp&nbsp电话: {{ expert.emobile }}&nbsp&nbsp&nbsp//&nbsp&nbsp&nbsp行业: {{ expert.etrade }}</p>
+
          </div>
     {% empty %}
         <div class="no-post">

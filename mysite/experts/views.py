@@ -387,55 +387,47 @@ def advanced_expert_search(request):
     position = request.GET.get('position')
     duty = request.GET.get('duty')
     area = request.GET.get('area')
-    #temp = [name,sex,location,trade,subtrade,company,agency,position,duty,area]
-    empty_list_for_workexp = []
-    empty_list_for_expertinfo = []
+    info_variables = [name,sex,location,trade,subtrade]
+    info_variables = [var for var in info_variables if var]
+    work_variables = [company,agency,position,duty,area]
+    work_variables = [var for var in work_variables if var]
 
 
-    if not name:
-        name = ''
-        empty_list_for_expertinfo.append('name')
-    if not sex:
-        sex = ''
-        empty_list_for_expertinfo.append('sex')
-    if not location:
-        location=''
-        empty_list_for_expertinfo.append('location')
-    if not trade:
-        trade = ''
-        empty_list_for_expertinfo.append('trade')
-    if not subtrade:
-        subtrade = ''
-        empty_list_for_expertinfo.append('subtrade')
 
-    if not company:
-        company = ''
-        empty_list_for_workexp.append('company')
-    if not agency:
-        agency = ''
-        empty_list_for_workexp.append('agency')
-    if not position:
-        position = ''
-        empty_list_for_workexp.append('position')
-    if not duty:
-        duty =''
-        empty_list_for_workexp.append('duty')
-    if not area:
-        area = ''
-        empty_list_for_workexp.append('area')
+    result_list1 = []
+    result_list2 = []
+    all_experts = ExpertInfo.objects.all()
+    all_workexp = WorkExp.objects.all()
+    for exp in all_experts:
+        if name in info_variables and name not in exp.ename:
+            continue
+        if sex in info_variables and sex != exp.esex:
+            continue
+        if location in info_variables and (not exp.elocation or location not in exp.elocation):
+            continue
+        if trade in info_variables and (not exp.etrade or trade not in exp.etrade):
+            continue
+        if subtrade in info_variables and (not exp.esubtrade or subtrade not in exp.esubtrade):
+            continue
+        result_list1.append(exp)
 
+    for work in all_workexp:
+        if company in work_variables and (not work.company or company not in work.company):
+            continue
+        if agency in work_variables and (not work.agency or agency not in work.agency):
+            continue
+        if position in work_variables and (not work.position or position not in work.position):
+            continue
+        if duty in work_variables and (not work.duty or duty not in work.duty):
+            continue
+        if area in work_variables and (not work.area or area not in work.area):
+            continue
+        result_list2.append(work)
+
+    items = chain(result_list1, result_list2)
     expert_list1 = []
     expert_list2 = []
-    result_list1 = ExpertInfo.objects.filter(ename__contains=name, esex__contains=sex,
-                                             etrade__contains=trade,esubtrade__contains=subtrade,
-                                             elocation__contains=location
-                                             )
-    result_list2 = WorkExp.objects.filter(company__contains=company, agency__contains=agency,
-                                        position__contains=position,duty__contains=duty,
-                                        area__contains=area
-                                        )
-    items = chain(result_list1, result_list2)
-
+    print("Here")
     for item in items:
         if type(item) is ExpertInfo:
             print("---EXPERTINFO: ", item.eid)
@@ -449,12 +441,15 @@ def advanced_expert_search(request):
                 eid = item.eid
             expert = ExpertInfo.objects.get(eid=eid)
             expert_list2.append(expert)
-    if len(empty_list_for_expertinfo) == 5:
+
+    if len(info_variables) == 0 and len(work_variables) == 0:
+        expert_list = expert_list1 + expert_list2
+    elif len(info_variables) == 0:
         print("No constraints for expertinfo")
         expert_list = expert_list2
         for exp in expert_list2:
             print(exp)
-    elif len(empty_list_for_workexp) == 5:
+    elif len(work_variables) == 0:
         print("No constraints for workexp")
         expert_list = expert_list1
         for exp in expert_list1:

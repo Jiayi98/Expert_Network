@@ -23,7 +23,8 @@
             {% for expert in expert_objs %}
                 <h3> <a href="{{ expert.get_absolute_url }}"> {{ expert.ename }}</a></h3>
 
-                <p class="basic_info">EID: {{ expert.eid }}&nbsp&nbsp&nbsp//&nbsp&nbsp&nbspAddtime: {{ expert.addtime }}</p>
+            ——EID: {{ expert.eid }}&nbsp&nbsp&nbsp//&nbsp&nbsp&nbsp电话: {{ expert.emobile }}&nbsp&nbsp&nbsp//&nbsp&nbsp&nbsp行业: {{ expert.etrade }}</p>
+
                 {% for c in comment_objs %}
                     <p> <a href="{{ c.get_comment_update_url }}"> {{ c.eproblem }} </a></p>
 

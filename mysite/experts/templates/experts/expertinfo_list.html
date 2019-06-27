@@ -3,8 +3,9 @@
     <br>
     <h1>Experts</h1>
     {% for expert in experts %}
-        <h3> <a href="{{ expert.get_absolute_url }}"> {{ expert.ename }}</a></h3>
-        <p class="eid">EID: {{ expert.eid }}&nbsp&nbsp&nbsp//&nbsp&nbsp&nbspAddtime: {{ expert.addtime }}</p>
+        <h5> <a href="{{ expert.get_absolute_url }}"> {{ expert.ename }}</a></h5>
+            ——EID: {{ expert.eid }}&nbsp&nbsp&nbsp//&nbsp&nbsp&nbsp电话: {{ expert.emobile }}&nbsp&nbsp&nbsp//&nbsp&nbsp&nbsp行业: {{ expert.etrade }}</p>
+
     {% endfor %}
     {% include "experts/pagination.html" with page=experts %}
 {% endblock content %}
