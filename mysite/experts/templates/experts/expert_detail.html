@@ -7,9 +7,53 @@
     }
 </script>
 {% block content %}
-    <br>
+<br>
     <h1>{{ expert.ename }}</h1>
-    <br>
+<br>
+<table class="table table-condensed table-bordered">
+  <caption></caption>
+  <thead>
+    <tr>
+        <th>EID</th>
+        <th>性别</th>
+        <th>行业</th>
+        <th>子行业</th>
+        <th>生日</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="info">
+      <td>{{ expert.eid }}</td>
+      <td>{{ expert.esex }}</td>
+      <td>{{ expert.etrade }}</td>
+        <td>{{ expert.esubtrade }}</td>
+        <td>{{ expert.ebirthday }}</td>
+    </tr>
+  </tbody>
+</table>
+<table class="table table-condensed table-bordered">
+  <caption></caption>
+  <thead>
+    <tr>
+        <th>地区</th>
+        <th>评级</th>
+        <th>来源</th>
+        <th>备注</th>
+        <th>添加时间</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="info">
+        <td>{{ expert.elocation }}</td>
+        <td>{{ expert.estate }}</td>
+        <td>{{ expert.ecomefrom }}</td>
+        <td>{{ expert.eremark }}</td>
+        <td>{{ expert.addtime }}</td>
+
+    </tr>
+  </tbody>
+</table>
+<!--
     <li> 电话： {{ expert.emobile }} </li>
     <li> EID： {{ expert.eid }} </li>
     <li> 性别： {{ expert.esex }} </li>
@@ -25,21 +69,10 @@
     <li> 来源： {{ expert.ecomefrom }} </li>
     <li> 备注： {{ expert.eremark }} </li>
     <li> admin_id：{{ expert.admin_id }} </li>
-    <li> 添加时间： {{ expert.addtime }} </li>
+    <li> 添加时间： {{ expert.addtime }} </li>-->
 <br><br>
+<button type="button" class="btn btn-warning" onclick="window.location.href='{{ expert.get_comment_url }}'">联系方式</button>&nbsp&nbsp&nbsp
 <button type="button" class="btn btn-warning" onclick="window.location.href='{{ expert.get_comment_url }}'">专家访谈</button>&nbsp&nbsp&nbsp
 <button type="button" class="btn btn-warning" onclick="window.location.href='{{ expert.get_workexp_url }}'">工作经历</button><br><br>
 
-
-
-    <!--<input type="button" value="专家访谈" onclick="window.location.href('{{ expert.get_comment_url }}')">
-    <br>
-    {% for comment in comments %}
-        <div class="expert_comment">
-            <label class="sol-sm-2 control-label">专家访谈</label>
-            <li> 访谈： {{ comment.eproblem }} </li>
-            <li> 访谈详情： {{ comment.ecomment }} </li>
-        </div>
-        <br>
-    {% endfor %}-->
 {% endblock content %}

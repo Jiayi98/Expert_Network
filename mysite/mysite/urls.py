@@ -75,7 +75,7 @@ urlpatterns = [
 
     path('search_expert/', experts_views.search_expert, name='search_expert'),
     path('advanced_expert_search/', experts_views.advanced_expert_search, name='advanced_expert_search'),
-    path('advanced_expert/', experts_views.advanced_expert, name='advanced_expert'),
+    path('advanced_expert/', experts_views.advanced_expert_form, name='advanced_expert_form'),
 
     path('', include('experts.urls')),
     path('', include('users.urls')),

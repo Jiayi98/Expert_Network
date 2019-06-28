@@ -266,7 +266,7 @@ def addok(request):
 
 def expertInfo_list(request):
     experts_list = ExpertInfo.objects.all()
-    paginator = Paginator(experts_list, 10)
+    paginator = Paginator(experts_list, 30)
     page = request.GET.get('page')
     try:
         experts = paginator.page(page)
@@ -372,7 +372,7 @@ def workexp_detail_update(request, eid, expid):
 
     return render(request, template_name, {'workexp':workexp,'expert': expert,'form': form,'result':result})
 
-def advanced_expert(request):
+def advanced_expert_form(request):
     return render(request, 'experts/advanced_expert_search.html')
 
 def advanced_expert_search(request):

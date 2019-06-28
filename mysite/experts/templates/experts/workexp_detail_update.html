@@ -5,7 +5,8 @@
     <h3> 更新{{ expert.ename }}的工作经历</h3>
     {% if result.status == 'success' %}
         <p style="align-content: center;color: green;font-size: medium">
-            <input type="button" class="btn btn-success" value="修改成功，返回专家列表" onclick="window.location.href='{% url 'expertinfolist' %}'">
+            <!--<input type="button" class="btn btn-success" value="修改成功，返回专家列表" onclick="window.location.href='{% url 'expertinfolist' %}'">-->
+            <input type="button" class="btn btn-success btn-sm"  value="修改成功,返回工作经历列表" onclick="location.href='{% url 'workexp_detail' expert.eid expert.ename %}'">
         </p>
     {% endif %}
 

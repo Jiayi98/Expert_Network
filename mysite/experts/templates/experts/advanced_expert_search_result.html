@@ -1,5 +1,45 @@
 {% extends "experts/base.html" %}
 {% block content %}
+    <br>
+    <h2>搜索结果</h2>
+    <input type="button" class="btn btn-info btn-sm"  value="返回组合搜索页面" onclick="location.href='/advanced_expert/'">
+    <br><br>
+    {% if error_msg %}
+        <p>{{ error_msg }}</p>
+    {% endif %}
+
+    <table class="table table-striped">
+	    <caption></caption>
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>行业</th>
+                <th>地区</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for expert in expert_list %}
+            <tr>
+                <td><a href="{{ expert.get_absolute_url }}"> {{ expert.ename }}</a></td>
+                <td>{{ expert.esex }}</td>
+                <td>{{ expert.etrade }}</td>
+                <td>{{ expert.elocation }}</td>
+            </tr>
+            {% empty %}
+                <div class="no-post">
+                <td>没有搜索到符合条件的专家</td>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+
+
+{% endblock content %}
+<!--
+
     <br><br>
     <h2>搜索结果</h2>
     <br>
@@ -14,5 +54,5 @@
             没有搜索到符合条件的专家
         </div>
     {% endfor %}
-<!-- {% include "experts/pagination.html" with page=expert_list %}-->
-{% endblock content %}
+ {% include "experts/pagination.html" with page=expert_list %}
+-->

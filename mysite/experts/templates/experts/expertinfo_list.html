@@ -1,11 +1,31 @@
 {% extends "experts/base.html" %}
 {% block content %}
     <br>
-    <h1>Experts</h1>
-    {% for expert in experts %}
-        <h5> <a href="{{ expert.get_absolute_url }}"> {{ expert.ename }}</a></h5>
-            ——EID: {{ expert.eid }}&nbsp&nbsp&nbsp//&nbsp&nbsp&nbsp电话: {{ expert.emobile }}&nbsp&nbsp&nbsp//&nbsp&nbsp&nbsp行业: {{ expert.etrade }}</p>
+    <h2>专家列表</h2>
+    <br>
+<table class="table table-striped">
+	<caption></caption>
+   <thead>
+      <tr>
+          <th>姓名</th>
+          <th>性别</th>
+          <th>行业</th>
+          <th>地区</th>
+
+      </tr>
+   </thead>
+   <tbody>
+   {% for expert in experts %}
+      <tr>
+          <td><a href="{{ expert.get_absolute_url }}"> {{ expert.ename }}</a></td>
+         <td>{{ expert.esex }}</td>
+         <td>{{ expert.etrade }}</td>
+          <td>{{ expert.elocation }}</td>
+      </tr>
 
     {% endfor %}
+   </tbody>
+</table>
+
     {% include "experts/pagination.html" with page=experts %}
 {% endblock content %}

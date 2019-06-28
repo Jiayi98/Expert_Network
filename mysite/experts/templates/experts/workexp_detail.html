@@ -4,30 +4,63 @@
     <br><br>
     <h2>{{expert.ename}} - 工作经历</h2>
     <br>
-    <input type="button" class="btn btn-info"  value="返回查看信息" onclick="javascript:history.go(-1);">
-    <input type="button" class="btn btn-warning"  value="新建工作经历" onclick="window.location.href='{% url 'addworkexp' %}'">
+    <input type="button" class="btn btn-info btn-sm"  value="返回专家信息" onclick="location.href='{% url 'expert_detail' expert.ename expert.emobile%}'">
+    <input type="button" class="btn btn-warning btn-sm"  value="新建工作经历" onclick="window.location.href='{% url 'addworkexp' %}'">
     <br><br>
+<table class="table table-condensed table-hover">
+  <caption></caption>
+  <thead>
+    <tr>
+        <th>时间</th>
+        <th>公司/部门</th>
+        <th>职位/职责</th>
+        <th>领域</th>
+        <th></th>
 
+    </tr>
+  </thead>
+  <tbody>
+  {% for exp in workexps %}
+   <tr class="info">
+       <td>{{ exp.stime }} - {{ exp.etime }}</td>
+       <td>{{ exp.company }} - {{ exp.agency }}</td>
+       <td>{{ exp.position }} - {{ exp.duty }}</td>
+       <td> {{ exp.area }}</td>
+       <td>
+           <button type="button" class="btn btn-info btn-sm" onclick="window.location.href='{{ exp.get_workexp_update_url }}'">修改</button>
+            <button type="button" class="btn btn-danger btn-sm" onclick="location.href='{{ exp.delete_workexp }}'">删除</button>
+       </td>
+  </tr>
+  {% endfor %}
+  {% if result.status == 'success'%}
+        <td>{{ exp.stime }} - {{ exp.etime }}</td>
+        <td>{{ exp.company }} - {{ exp.agency }}</td>
+        <td>{{ exp.position }} - {{ exp.duty }}</td>
+        <td> {{ exp.area }}</td>
+  <td>            <button type="button" class="btn btn-danger btn-sm" onclick="window.location.href='{{ exp.delete_workexp_confirm }}'">确认删除</button></td>
+  {% endif %}
+  </tbody>
+</table>
+<!--
     {% for exp in workexps %}
         <div class="work_experience">
             <label class="sol-sm-2 control-label">时间： {{ exp.stime }} - {{ exp.etime }}</label>
-            <!--<li> 时间： {{ exp.stime }} - {{ exp.etime }} </li>-->
+
             <li> 公司/部门： {{ exp.company }} - {{ exp.agency }} </li>
             <li> 职位/职责： {{ exp.position }} - {{ exp.duty }} </li>
             <li> 领域： {{ exp.area }} </li>
         </div>
         <br>
-        <button type="button" class="btn btn-info" onclick="window.location.href='{{ exp.get_workexp_update_url }}'">修改</button>&nbsp&nbsp&nbsp
-        <button type="button" class="btn btn-danger" onclick="location.href='{{ exp.delete_workexp }}'">删除</button><br><br>
-        <br><br>
+        <button type="button" class="btn btn-info btn-sm" onclick="window.location.href='{{ exp.get_workexp_update_url }}'">修改</button>&nbsp&nbsp&nbsp
+        <button type="button" class="btn btn-danger btn-sm" onclick="location.href='{{ exp.delete_workexp }}'">删除</button><br><br>
     {% endfor %}
     {% if result.status == 'success'%}
             <label class="sol-sm-2 control-label">时间： {{ exp.stime }} - {{ exp.etime }}</label>
-            <!--<li> 时间： {{ exp.stime }} - {{ exp.etime }} </li>-->
+
             <li> 公司/部门： {{ exp.company }} - {{ exp.agency }} </li>
             <li> 职位/职责： {{ exp.position }} - {{ exp.duty }} </li>
             <li> 领域： {{ exp.area }} </li>
             <br><br>
-            <button type="button" class="btn btn-danger" onclick="window.location.href='{{ exp.delete_workexp_confirm }}'">确认删除</button><br><br>
-    {% endif %}
+            <button type="button" class="btn btn-danger btn-sm" onclick="window.location.href='{{ exp.delete_workexp_confirm }}'">确认删除</button><br><br>
+    {% endif %}-->
 {% endblock content %}

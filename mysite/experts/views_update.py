@@ -6,7 +6,7 @@ from .models import ExpertInfo,ExpertComments,WorkExp
 from .forms_update import ExpertInfoFormUpdate
 #CommentFormUpdate,WorkexpFormUpdate,ExpertInfoFormUpdateDB
 from django.contrib.auth.decorators import login_required
-
+from .views import comment_detail
 
 @login_required
 def expertInfoDelete(request):
@@ -79,7 +79,9 @@ def delete_comment_confirm(request, eid, cmtid):
     else:
         c.delete()
         result['status'] = 'success'
-        return HttpResponseRedirect('/addcomplete/')
+        #return comment_detail(request, eid, expert.ename)
+        url = 'http://127.0.0.1:8000/{eid}/{ename}/commentdetail'.format(eid=eid,ename=expert.ename)
+        return HttpResponseRedirect(url)
 
     #return render(request, template_name,{'expert':expert,'result':result})
 
@@ -114,7 +116,8 @@ def delete_workexp_confirm(request, eid, expid):
     else:
         exp.delete()
         result['status'] = 'success'
-        return HttpResponseRedirect('/addcomplete/')
+        url = 'http://127.0.0.1:8000/{eid}/{ename}/workexpdetail'.format(eid=eid,ename=expert.ename)
+        return HttpResponseRedirect(url)
 
     #return render(request, template_name,{'expert':expert,'result':result})
 
