@@ -4,7 +4,7 @@
     <br><br>
     <h2>{{expert.ename}} - 工作经历</h2>
     <br>
-    <input type="button" class="btn btn-info btn-sm"  value="返回专家信息" onclick="location.href='{% url 'expert_detail' expert.ename expert.emobile%}'">
+    <input type="button" class="btn btn-info btn-sm"  value="返回专家信息" onclick="location.href='{% url 'expert_detail' expert.ename expert.eid%}'">
     <input type="button" class="btn btn-warning btn-sm"  value="新建工作经历" onclick="window.location.href='{% url 'addworkexp' %}'">
     <br><br>
 <table class="table table-condensed table-hover">

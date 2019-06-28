@@ -16,7 +16,14 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 def base(request):
     return render(request, 'experts/base.html')
+@login_required
+def expert_contact_info(request, eid):
+    print("=============views.expert_contact_info======")
+    template_name = 'experts/expert_contact_info.html'
+    expert = get_object_or_404(ExpertInfo, eid=eid)
+    return render(request, template_name, {'expert': expert})
 
+@login_required
 def myDelete(request, ename, emobile):
     print("=============views.DELETE======")
     template_name = 'experts/delete.html'
@@ -155,7 +162,9 @@ def add_comment(request,ename,emobile):
             newComment.eproblem = eproblem
             newComment.ecomment = ecomment
             newComment.save()
-            return HttpResponseRedirect('/addcomplete/')
+            url = 'http://127.0.0.1:8000/{eid}/{ename}/commentdetail'.format(eid=expert.eid, ename=expert.ename)
+            return HttpResponseRedirect(url)
+            #return HttpResponseRedirect('/addcomplete/')
     return render(request, 'experts/addcomment_confirm.html', {"formC":formC})
 
 
@@ -252,7 +261,9 @@ def add_workexp(request,ename,emobile):
             newExp.area = area
             #newExp.istonow = istonow
             newExp.save()
-            return HttpResponseRedirect('/addcomplete/')
+            url = 'http://127.0.0.1:8000/{eid}/{ename}/workexpdetail'.format(eid=expert.eid, ename=expert.ename)
+            return HttpResponseRedirect(url)
+            #return HttpResponseRedirect('/addcomplete/')
     return render(request, 'experts/addworkexp_confirm.html', {"formW":formW})
 
 
@@ -276,11 +287,11 @@ def expertInfo_list(request):
         experts = paginator.page(paginator.num_pages)
     return render(request, 'experts/expertinfo_list.html', {'page':page, 'experts':experts})
 
-def expert_detail(request, ename, emobile):
+def expert_detail(request, ename, eid):
     # if not request.user.has_perm(''):
     #    raise PermissionDenied
     print("===========views.expert_detail=========")
-    expert = get_object_or_404(ExpertInfo, ename=ename, emobile=emobile)
+    expert = get_object_or_404(ExpertInfo, eid=eid)
     #eid = expert.eid
     #comments = ExpertComments.objects.filter(eid=expert.eid)
     #print(expert.eid)

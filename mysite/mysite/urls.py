@@ -53,7 +53,7 @@ urlpatterns = [
 
     path('updateexpert/', update_views.expertInfoUpdate, name='updateexpert'),
     path('expertinfolist/', experts_views.expertInfo_list, name='expertinfolist'),
-    path('<str:ename>/<str:emobile>/', experts_views.expert_detail, name='expert_detail'),
+    path('<str:ename>/<int:eid>/', experts_views.expert_detail, name='expert_detail'),
     path('update/<str:ename>/<str:emobile>/', experts_views.expert_detail_update, name='expert_detail_update'),
     path('expertinfoupdatetodatabase/', update_views.expertInfoUpdateToDatabase, name='expertinfoupdatetodatabase'),
 
@@ -76,6 +76,8 @@ urlpatterns = [
     path('search_expert/', experts_views.search_expert, name='search_expert'),
     path('advanced_expert_search/', experts_views.advanced_expert_search, name='advanced_expert_search'),
     path('advanced_expert/', experts_views.advanced_expert_form, name='advanced_expert_form'),
+
+    path('expert_contact_info/<int:eid>/', experts_views.expert_contact_info, name='expert_contact_info'),
 
     path('', include('experts.urls')),
     path('', include('users.urls')),
