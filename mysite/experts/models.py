@@ -32,8 +32,9 @@ class ExpertInfo(models.Model):
         return "{}-{}".format(self.eid, self.ename)
 
     def contact_info(self):
-        print("==============models.contact_info============", self.eid)
-        return reverse('expert_contact_info', args=[self.eid])
+        print("==============models.contact_info============", self.ename,self.eid)
+        #print(reverse('expert_contact_info', args=[self.eid]))
+        return reverse('expert_contact_info', args=[self.ename,self.eid])
 
     def myDelete(self):
         print("==============models.delete============",self.eid, self.ename, self.emobile)
@@ -47,12 +48,14 @@ class ExpertInfo(models.Model):
         return reverse('expert_detail',args=[self.ename, self.eid])
 
     def get_comment_url(self):
+        print("==============models.get_comment_url============",self.eid, self.ename)
         return reverse('comment_detail',args=[self.eid, self.ename])
 
     def add_comment_url(self):
         return reverse('add_comment',args=[self.ename, self.emobile])
 
     def get_workexp_url(self):
+        print("==============models.get_workexp_url============", self.eid, self.ename)
         return reverse('workexp_detail',args=[self.eid, self.ename])
 
     def add_workexp_url(self):

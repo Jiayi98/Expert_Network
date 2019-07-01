@@ -16,8 +16,10 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 def base(request):
     return render(request, 'experts/base.html')
+
 @login_required
-def expert_contact_info(request, eid):
+def expert_contact_info(request, ename, eid):
+
     print("=============views.expert_contact_info======")
     template_name = 'experts/expert_contact_info.html'
     expert = get_object_or_404(ExpertInfo, eid=eid)
@@ -356,7 +358,7 @@ def comment_detail_update(request, eid, cmtid):
 def workexp_detail(request, eid, ename):
     # if not request.user.has_perm(''):
     #    raise PermissionDenied
-
+    print("-------views.py/In Workexp_Detail-----")
     expert = get_object_or_404(ExpertInfo,eid=eid)
     workexps = WorkExp.objects.filter(eid=eid)
     print(eid)

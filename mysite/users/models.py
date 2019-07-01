@@ -9,18 +9,7 @@ class MyUser(models.Model):
 
     class Meta:
         permissions = (
-            ("view_details", "Can see details of experts' information"),
-            ("add_expert_info", "Can add a new expert"),
-            ("add_expert_comment", "Can add new expert comment"),
-            ("add_expert_exp", "Can add new experience of a specified expert"),
 
-            ("del_expert_info", "Can remove an existing expert"),
-            ("del_expert_comment", "Can remove an existing expert comment"),
-            ("del_expert_exp", "Can remove existing experience of a specified expert"),
-
-            ("mod_expert_info", "Can modify an existing expert"),
-            ("mod_expert_comment", "Can modify an existing expert comment"),
-            ("mod_expert_exp", "Can modify existing experience of a specified expert"),
         )
 
     def __str__(self):
