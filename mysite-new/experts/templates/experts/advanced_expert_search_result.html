@@ -1,0 +1,57 @@
+{% extends "experts/base.html" %}
+{% block content %}
+    <br>
+    <h2>搜索结果</h2>
+    <input type="button" class="btn btn-info btn-sm"  value="返回组合搜索页面" onclick="location.href='/advanced_expert/'">
+    <br><br>
+    {% if error_msg %}
+        <p>{{ error_msg }}</p>
+    {% endif %}
+
+    <table class="table table-striped" width="100%">
+	    <caption></caption>
+        <thead>
+            <tr>
+                <th width="10%">姓名</th>
+                <th width="40%">行业</th>
+                <th width="30%">公司</th>
+                <th width="20%">职位</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expert in expert_list %}
+            <tr>
+                <td><a href="{{ expert.get_absolute_url }}"> {{ expert.ename }}</a></td>
+                <td>{{ expert.etrade }}</td>
+                <td>{{ expert.get_company }}</td>
+                <td>{{ expert.get_position }}</td>
+            </tr>
+            {% empty %}
+                <div class="no-post">
+                <td>没有搜索到符合条件的专家</td>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+
+
+{% endblock content %}
+<!--
+
+    <br><br>
+    <h2>搜索结果</h2>
+    <br>
+
+    {% for expert in expert_list %}
+         <div>
+            <p> <a href="{{ expert.get_absolute_url }}"> {{ expert.ename }}</a>
+            ——EID: {{ expert.eid }}&nbsp&nbsp&nbsp//&nbsp&nbsp&nbsp电话: {{ expert.emobile }}&nbsp&nbsp&nbsp//&nbsp&nbsp&nbsp行业: {{ expert.etrade }}</p>
+         </div>
+    {% empty %}
+        <div class="no-post">
+            没有搜索到符合条件的专家
+        </div>
+    {% endfor %}
+ {% include "experts/pagination.html" with page=expert_list %}
+-->

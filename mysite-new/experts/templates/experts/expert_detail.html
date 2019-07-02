@@ -1,0 +1,182 @@
+{% extends "experts/base.html" %}
+
+<script>
+    function openWin()
+    {
+        window.location.href("{{ expert.get_comment_url }}")
+    }
+</script>
+{% block content %}
+<br>
+    <h2>{{ expert.ename }}</h2>
+<!--<button value="返回" onclick="javascript:history.go(-1);">返回上一步</button>-->
+<br>
+<table class="table table-bordered" style="table-layout: fixed">
+  <caption></caption>
+  <thead>
+    <tr>
+        <th>EID</th>
+        <td>{{ expert.eid }}</td>
+    </tr>
+    <tr>
+        <th>性别</th>
+        <td>{{ expert.esex }}</td>
+    </tr>
+    <tr>
+        <th>行业</th>
+        <td>{{ expert.etrade }}</td>
+    </tr>
+    <tr>
+        <th>子行业</th>
+        <td>{{ expert.esubtrade }}</td>
+    </tr>
+    <tr>
+        <th>生日</th>
+        <td>{{ expert.ebirthday }}</td>
+    </tr>
+  <tr>
+      <th>地区</th>
+      <td>{{ expert.elocation }}</td>
+  </tr>
+    <tr>
+        <th>评级</th>
+        <td>{{ expert.estate }}</td>
+    </tr>
+    <tr>
+        <th>来源</th>
+        <td>{{ expert.ecomefrom }}</td>
+    </tr>
+    <tr>
+        <th>备注</th>
+        <td>{{ expert.eremark }}</td>
+    </tr>
+    <tr>
+        <th>添加时间</th>
+        <td>{{ expert.addtime }}</td>
+    </tr>
+  </thead>
+
+</table>
+
+
+<!--
+    <li> 电话： {{ expert.emobile }} </li>
+    <li> EID： {{ expert.eid }} </li>
+    <li> 性别： {{ expert.esex }} </li>
+    <li> 邮箱： {{ expert.eemail }} </li>
+    <li> 行业： {{ expert.etrade }} </li>
+    <li> 子行业： {{ expert.esubtrade }} </li>
+    <li> 生日： {{ expert.ebirthday }} </li>
+    <li> 地区： {{expert.elocation}} </li>
+    <li> Landline：{{ expert.elandline }} </li>
+    <li> MSN: {{ expert.emsn }} </li>
+    <li> QQ: {{ expert.eqq }} </li>
+    <li> State： {{ expert.estate }} </li>
+    <li> 来源： {{ expert.ecomefrom }} </li>
+    <li> 备注： {{ expert.eremark }} </li>
+    <li> admin_id：{{ expert.admin_id }} </li>
+    <li> 添加时间： {{ expert.addtime }} </li>-->
+
+<button type="button" class="btn btn-warning" onclick="window.location.href='{{ expert.contact_info }}'">联系方式</button>&nbsp&nbsp&nbsp
+<!--<button type="button" class="btn btn-warning" onclick="window.location.href='{{ expert.get_comment_url }}'">专家访谈</button>&nbsp&nbsp&nbsp
+<button type="button" class="btn btn-warning" onclick="window.location.href='{{ expert.get_workexp_url }}'">工作经历</button><br><br>
+-->
+<br><br>
+<div class="panel-group" id="accordion">
+
+    <div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<button class="btn btn-info" data-toggle="collapse" data-parent="#accordion"
+				   href="#collapseOne">
+				    查看工作经历
+				</button>
+			</h4>
+		</div>
+		<div id="collapseOne" class="panel-collapse collapse in">
+			<div class="panel-body">
+				<table class="table table-condensed table-hover" width="100%">
+                    <caption></caption>
+                    <thead>
+                    <tr>
+                        <th width="15%">时间</th>
+                        <th width="30%">公司/部门</th>
+                        <th width="40%">职位/职责</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for exp in workexps %}
+                    <tr class="info">
+                        <td>{{ exp.stime }} - {{ exp.etime }}</td>
+                        <td>{{ exp.company }} - {{ exp.agency }}</td>
+                        <td>{{ exp.position }} - {{ exp.duty }}</td>
+                        <td>
+                            <button type="button" class="btn btn-info btn-sm" onclick="window.location.href='{{ exp.get_workexp_update_url }}'">修改</button>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="location.href='{{ exp.delete_workexp }}'">删除</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% if result.status == 'success'%}
+                        <td>{{ exp.stime }} - {{ exp.etime }}</td>
+                        <td>{{ exp.company }} - {{ exp.agency }}</td>
+                        <td>{{ exp.position }} - {{ exp.duty }}</td>
+                        <td> {{ exp.area }}</td>
+                        <td>            <button type="button" class="btn btn-danger btn-sm" onclick="window.location.href='{{ exp.delete_workexp_confirm }}'">确认删除</button></td>
+                    {% endif %}
+                    </tbody>
+                </table>
+			</div>
+		</div>
+	</div>
+    <br>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<button class="btn btn-info" data-toggle="collapse" data-parent="#accordion"
+				   href="#collapseTwo">
+				查看专家评论
+				</button>
+			</h4>
+		</div>
+		<div id="collapseTwo" class="panel-collapse collapse">
+			<div class="panel-body">
+				<table class="table table-condensed table-hover" style="table-layout: fixed">
+  <caption></caption>
+  <thead>
+    <tr>
+        <th>问题</th>
+        <th>详情</th>
+        <th></th>
+
+    </tr>
+  </thead>
+  <tbody>
+  {% for comment in comments %}
+   <tr class="info">
+
+      <td>{{ comment.eproblem }}</td>
+      <td>{{ comment.ecomment }}</td>
+
+       <td>
+           <button type="button" class="btn btn-info btn-sm" onclick="window.location.href='{{ comment.get_comment_update_url }}'">修改</button>
+           <button type="button" class="btn btn-danger btn-sm" onclick="location.href='{{ comment.delete_comment }}'">删除</button>
+       </td>
+  </tr>
+  {% endfor %}
+  {% if result.status == 'success'%}
+            <td> {{ c.eproblem }} </td>
+            <td> {{ c.ecomment }} </td>
+
+  <td><button type="button" class="btn btn-danger btn-sm" onclick="window.location.href='{{ c.delete_comment_confirm }}'">确认删除</button></td>
+  {% endif %}
+  </tbody>
+</table>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+{% endblock content %}
