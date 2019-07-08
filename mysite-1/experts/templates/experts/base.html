@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'experts/main.css' %}">
+
+
+</head>
+<body>
+    <header class="site-header">
+     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'base' %}">Home</a>
+            </li>
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'dashboard' %}">{{user.username}}'s Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'expertinfolist' %}">All Experts</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+
+            {% endif %}
+        </ul>
+     </nav>
+    </header>
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8">
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+
+          {% block content %}
+            <br>
+            <h1>Experts Network</h1>
+            {% endblock %}
+        </div>
+        <div class="col-md-4">
+          <div class="content-section">
+            <!--<h3>Our Sidebar</h3>-->
+            <p class='text-muted'>
+                <!--You can put any information here you'd like.-->
+              <br>
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-light">
+                  Search
+                    <br>
+                  <form method="get" action="{% url 'search_expert' %}">
+                    {% csrf_token %}
+                      <input type="search" class="btn" name='q' placeholder="搜索" required>
+                      <button type="submit" class="btn btn-success">搜索</button>
+                  </form>
+                  {% if error_msg %}
+                    {{error_msg}}
+                  {% endif %}
+                </li>
+
+              <li class="list-group-item list-group-item-light">
+                  Advanced Search
+                  <br>
+                  <a href="{% url 'advanced_expert_form'%}" class="btn btn-info">高级搜索</a>
+
+                  <!--
+                  <form method="get" action="{% url 'search_expert' %}">
+                    {% csrf_token %}
+                      <input type="search" class="btn" name='name' placeholder="姓名" required>
+                      <input type="search" class="btn" name='sex' placeholder="性别" required>
+                      <input type="search" class="btn" name='location' placeholder="城市" required>
+                      <input type="search" class="btn" name='trade' placeholder="行业" required>
+                      <input type="search" class="btn" name='subtrade' placeholder="子行业" required>
+                      <input type="search" class="btn" name='company' placeholder="公司" required>
+                      <input type="search" class="btn" name='agency' placeholder="部门" required>
+                      <input type="search" class="btn" name='position' placeholder="职位" required>
+                      <input type="search" class="btn" name='duty' placeholder="工作职责" required>
+                      <input type="search" class="btn" name='area' placeholder="专业领域" required>
+                    <button type="submit" class="btn btn-success">搜索</button>
+                  </form>
+
+
+
+                  {% if error_msg %}
+                    {{error_msg}}
+                  {% endif %}-->
+                </li>
+
+                <li class="list-group-item list-group-item-light">
+                    Insert
+                    <br>
+                    <!--<input type="button" value="添加专家" href="{% url 'addexpert'%}" class="btn btn-info"></input>&nbsp&nbsp&nbsp
+                    <input type="button" value="添加访谈" href="{% url 'addcomment'%}" class="btn btn-info"></input>&nbsp&nbsp&nbsp
+                    <input type="button" value="添加经历" href="{% url 'addworkexp'%}" class="btn btn-info"></input>
+                    -->
+
+                    <a href="{% url 'addexpert'%}" class="btn btn-info">添加专家</a>
+
+                    <a href="{% url 'addcomment'%}" class="btn btn-info">添加访谈</a>
+
+                    <a href="{% url 'addworkexp'%}" class="btn btn-info">添加经历</a>
+                </li>
+
+                <li class="list-group-item list-group-item-light">
+                  Delete
+                  <br>
+                  <a href="{% url 'deleteexpert' %}" class="btn btn-danger">删除专家信息</a>
+
+                </li>
+
+                <li class="list-group-item list-group-item-light">
+                  Update
+                  <br>
+                  <a href="{% url 'updateexpert' %}" class="btn btn-warning">更新专家信息</a>
+                  <!--<a href="{% url 'updateexpert' %}">更新专家信息&nbsp&nbsp&nbsp</a>-->
+                </li>
+
+              </ul>
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+    <br><br><br><br>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>

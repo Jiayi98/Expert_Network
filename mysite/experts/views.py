@@ -11,6 +11,8 @@ from .forms_update import ExpertInfoFormUpdateDB,CommentFormUpdateDB, WorkexpFor
 
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import permission_required
+
 
 
 # Create your views here.
@@ -19,36 +21,46 @@ def base(request):
 
 @login_required
 def expert_contact_info(request, ename, eid):
-
-    print("=============views.expert_contact_info======")
     template_name = 'experts/expert_contact_info.html'
     expert = get_object_or_404(ExpertInfo, eid=eid)
-    return render(request, template_name, {'expert': expert})
+    msg = 'success'
+    if request.user.has_perm('查看联系方式'):
+        print("有权限")
+        #print("=============views.expert_contact_info======")
+        #template_name = 'experts/expert_contact_info.html'
+        #expert = get_object_or_404(ExpertInfo, eid=eid)
+        msg = 'success'
+    else:
+        print("无权限")
+        #template_name = 'experts/no_permission.html'
+        msg = "error"
+    return render(request, template_name, {'expert': expert,'msg':msg})
+
 
 @login_required
-def myDelete(request, ename, emobile):
-    print("=============views.DELETE======")
+def myDelete(request, eid, ename):
+    #print("=============views.DELETE======")
     template_name = 'experts/delete.html'
-    expert = get_object_or_404(ExpertInfo, ename=ename, emobile=emobile)
+    expert = get_object_or_404(ExpertInfo, ename=ename, eid=eid)
     return render(request, 'experts/delete.html', {'expert':expert})
 
 #def deleteConfirm(request):
-def delete_confirm(request, ename, emobile):
+def delete_confirm(request, eid,ename):
     print("=============views.delete_confirm======")
     template_name = 'experts/delete_confirm.html'
     result = {}
     form = deleteConfirmForm(request.POST)
     name = request.POST.get('ename')
-    mobile = request.POST.get('emobile')
+    eid = request.POST.get('eid')
     if request.method == 'POST' and request.POST:
-        print("==============进来了=")
+        #print("==============进来了=")
         if form.is_valid():
             try:
-                print("==============Try========")
-                expert = ExpertInfo.objects.get(ename=ename,emobile=emobile)
+                #print("==============Try========")
+                expert = ExpertInfo.objects.get(ename=ename,eid=eid)
                 print(expert)
             except:
-                print("==============ERROR========")
+                #print("==============ERROR========")
                 result['status'] = 'error'
             else:
                 expert.delete()
@@ -76,19 +88,18 @@ def addExpert(request):
 @login_required
 def addExpertToDatabase(request):
     if request.method == "POST":
-        print("-----------POST----------")
+        #print("-----------POST----------")
         expertInfo_form = ExpertInfoForm(data=request.POST)
         if expertInfo_form.is_valid():
             new_expert = expertInfo_form.save(commit=False)
             # filter得到的是一个list，而不是一个object
             expert = ExpertInfo.objects.filter(ename=new_expert.ename, emobile=new_expert.emobile)
             if expert.exists() == 0:
-                print("-----------Does not exist!----------")
+                #print("-----------Does not exist!----------")
                 new_expert = expertInfo_form.save()
             else:
-                print("!!!!!!!!!!!This expert already existed!!!!!!!!")
+                #print("!!!!!!!!!!!This expert already existed!!!!!!!!")
                 return render(request, 'experts/expert_already_exist.html')
-                #return HttpResponseRedirect('/expertalreadyexist/')
         else:
             print("-----------NOT VALID----------")
     else:
@@ -103,59 +114,34 @@ def addExpertToDatabase(request):
 
 @login_required
 def addComment(request):
-    #formC = CommentForm(request.POST)
     formI = ExpertInfoFormUpdate()
-
     ename = request.POST.get("ename")
     expert_objs = ExpertInfo.objects.filter(ename=ename)
-    for obj in expert_objs:
-        print(obj.eid)
+    #for obj in expert_objs:
+        #print(obj.eid)
     return render(request, 'experts/addcomment.html', {'formI': formI, 'expert_objs': expert_objs})
     #return render(request, 'experts/addcomment.html', {'formC': formC,'formI':formI,'expert_objs':expert_objs})
-"""
-@login_required
-def addCommentToDatabase(request):
-    if request.method == "POST":
-        ename = request.POST["ename"]
-        emobile = request.POST["emobile"]
-        eproblem = request.POST["eproblem"]
-        ecomment = request.POST["ecomment"]
-        try:
-            expert = ExpertInfo.objects.get(ename=ename, emobile=emobile)
-            print(expert.eid)
-        except:
-            print("!!!!!!!!!!!This expert not exist!!!!!!!!")
-            return HttpResponseRedirect('/addecomment/')
-            #return HttpResponseRedirect('experts/expertnotexist/')
-        else:
-            form = CommentForm(request.POST, instance=expert)
-            print("----------Expert Exists----------")
-            newComment = ExpertComments()
-            newComment.eid_id = expert.eid
-            newComment.eproblem = eproblem
-            newComment.ecomment = ecomment
-            newComment.save()
-            return HttpResponseRedirect('/addcomplete/')
 
-    else:
-        return render(request, 'experts/addcomment.html')
-"""
 
 
 @login_required
 def add_comment(request,ename,emobile):
-    print("!!!!!!!!!!!!!!!!!!!", ename, emobile)
+    #print("!!!!!!!!!!!!!!!!!!!", ename, emobile)
     formC = CommentForm(data=request.POST)
     eproblem = request.POST.get("eproblem")
     ecomment = request.POST.get("ecomment")
+    result = {}
+
     try:
         expert = ExpertInfo.objects.get(ename=ename, emobile=emobile)
-        print(expert.eid)
+        myurl = 'http://127.0.0.1:8000/{eid}/{ename}/commentdetail'.format(eid=expert.eid, ename=expert.ename)
+
+        #print(expert.eid)
     except:
-        print("!!!!!!!!!!!This expert not exist!!!!!!!!")
+        #print("!!!!!!!!!!!This expert not exist!!!!!!!!")
         return HttpResponseRedirect('/addecomment/')
     else:
-        print("----------Expert Exists----------")
+        #print("----------Expert Exists----------")
 
         if request.method == "POST":
             print("----------进来了----------")
@@ -164,10 +150,12 @@ def add_comment(request,ename,emobile):
             newComment.eproblem = eproblem
             newComment.ecomment = ecomment
             newComment.save()
-            url = 'http://127.0.0.1:8000/{eid}/{ename}/commentdetail'.format(eid=expert.eid, ename=expert.ename)
-            return HttpResponseRedirect(url)
+            myurl = 'http://127.0.0.1:8000/{eid}/{ename}/commentdetail'.format(eid=expert.eid, ename=expert.ename)
+
+            result['status'] = 'success'
+            return HttpResponseRedirect(myurl)
             #return HttpResponseRedirect('/addcomplete/')
-    return render(request, 'experts/addcomment_confirm.html', {"formC":formC})
+    return render(request, 'experts/addcomment_confirm.html', {"expert":expert,"formC":formC,'result':result, 'myurl':myurl})
 
 
 
@@ -186,51 +174,10 @@ def addWorkexp(request):
 
 
 
-"""
-@login_required
-def addWorkexpToDatabase(request):
 
-    if request.method == "POST":
-        ename = request.POST["ename"]
-        emobile = request.POST["emobile"]
-        stime = request.POST["stime"]
-        etime = request.POST["etime"]
-        company = request.POST["company"]
-        agency = request.POST["agency"]
-        position = request.POST["position"]
-        duty = request.POST["duty"]
-        area = request.POST["area"]
-        istonow = request.POST["istonow"]
-
-        try:
-            expert = ExpertInfo.objects.get(ename=ename, emobile=emobile)
-            print(expert.eid)
-        except:
-            print("!!!!!!!!!!!This expert not exist!!!!!!!!")
-            return HttpResponseRedirect('/addeworkexp/')
-            # return HttpResponseRedirect('experts/expertnotexist/')
-        else:
-            form = WorkexpForm(request.POST, instance=expert)
-            print("----------Expert Exists----------")
-            newExp = WorkExp()
-            newExp.eid_id = expert.eid
-            newExp.stime = stime
-            newExp.etime = etime
-            newExp.company = company
-            newExp.agency = agency
-            newExp.position = position
-            newExp.duty = duty
-            newExp.area = area
-            newExp.istonow = istonow
-            newExp.save()
-            return HttpResponseRedirect('/addcomplete/')
-
-    else:
-        return render(request, 'addworkexp.html')
-"""
 @login_required
 def add_workexp(request,ename,emobile):
-    print("!!!!!!!!!!!!!!!!!!!", ename, emobile)
+    #print("===================views.py-add_workexp=========", ename, emobile)
     formW = WorkexpForm(data=request.POST)
 
     stime = request.POST.get("stime")
@@ -245,10 +192,10 @@ def add_workexp(request,ename,emobile):
         expert = ExpertInfo.objects.get(ename=ename, emobile=emobile)
         print(expert.eid)
     except:
-        print("!!!!!!!!!!!This expert not exist!!!!!!!!")
+        #print("!!!!!!!!!!!This expert not exist!!!!!!!!")
         return HttpResponseRedirect('/addecomment/')
     else:
-        print("----------Expert Exists----------")
+        #print("----------Expert Exists----------")
 
         if request.method == "POST":
             print("----------进来了----------")
@@ -292,15 +239,16 @@ def expertInfo_list(request):
 def expert_detail(request, ename, eid):
     # if not request.user.has_perm(''):
     #    raise PermissionDenied
-    print("===========views.expert_detail=========")
+    #print("===========views.expert_detail=========")
     expert = get_object_or_404(ExpertInfo, eid=eid)
     #eid = expert.eid
     #comments = ExpertComments.objects.filter(eid=expert.eid)
     #print(expert.eid)
     #for c in comments:
     #    print(c.cmtid)
-
-    return render(request, 'experts/expert_detail.html', {'expert': expert})
+    workexps = WorkExp.objects.filter(eid=eid)
+    comments = ExpertComments.objects.filter(eid=eid)
+    return render(request, 'experts/expert_detail.html', {'expert': expert, 'workexps':workexps,'comments': comments})
     #return render(request, 'experts/expert_detail.html', {'expert':expert, 'comments':comments})
 
 
@@ -325,7 +273,7 @@ def expert_detail_update(request, ename, emobile):
 def comment_detail(request, eid, ename):
     # if not request.user.has_perm(''):
     #    raise PermissionDenied
-    print("=================在views.py中comment_detail()==========")
+    #print("=================在views.py中comment_detail()==========")
     expert = get_object_or_404(ExpertInfo,eid=eid)
     comments = ExpertComments.objects.filter(eid=eid)
     print(eid)
@@ -335,20 +283,19 @@ def comment_detail(request, eid, ename):
 
 # 刚加的
 def comment_detail_update(request, eid, cmtid):
-    print("=============views.py中comment_detail_update()")
+
+    #print("=============views.py中comment_detail_update()")
     template_name = 'experts/comment_detail_update.html'
     expert = get_object_or_404(ExpertInfo, eid=eid)
     comment = get_object_or_404(ExpertComments, cmtid=cmtid)
-    #form = ExpertInfoFormUpdateDB(instance=expert)
-    #print(eid, comment.eproblem)
     result = {}
     if request.method == 'POST':
         form = CommentFormUpdateDB(instance=comment, data=request.POST)
-        #print("~~~~~~~~~~~~~~~~~~", form.is_valid())
+
         if form.is_valid():
+            #print("=============form is valid =============", form.is_valid())
             form.save()
             result['status'] = 'success'
-        #return HttpResponseRedirect('/addcomplete/')
     else:
         form = CommentFormUpdateDB(instance=comment)
 
@@ -358,7 +305,7 @@ def comment_detail_update(request, eid, cmtid):
 def workexp_detail(request, eid, ename):
     # if not request.user.has_perm(''):
     #    raise PermissionDenied
-    print("-------views.py/In Workexp_Detail-----")
+    #print("-------views.py/In Workexp_Detail-----")
     expert = get_object_or_404(ExpertInfo,eid=eid)
     workexps = WorkExp.objects.filter(eid=eid)
     print(eid)
@@ -371,22 +318,34 @@ def workexp_detail_update(request, eid, expid):
     print("=============views.py中workexp_detail_update()")
     template_name = 'experts/workexp_detail_update.html'
     expert = get_object_or_404(ExpertInfo, eid=eid)
-    workexp = get_object_or_404(WorkExp, expid=expid)
+    exp = get_object_or_404(WorkExp, expid=expid)
     result = {}
     if request.method == 'POST':
-        form = WorkexpFormUpdateDB(instance=workexp, data=request.POST)
+        form = WorkexpFormUpdateDB(instance=exp, data=request.POST)
         if form.is_valid():
             form.save()
             # if is_ajax(), we just return the validated form, so the modal will close
+            print("成功")
             result['status'] = 'success'
+        else:
+            print("表单无效")
         #return HttpResponseRedirect('/addcomplete/')
     else:
-        form = WorkexpFormUpdateDB(instance=workexp)
+        form = WorkexpFormUpdateDB(instance=exp)
 
-    return render(request, template_name, {'workexp':workexp,'expert': expert,'form': form,'result':result})
+    return render(request, template_name, {'workexp':exp,'expert': expert,'form': form,'result':result})
 
 def advanced_expert_form(request):
-    return render(request, 'experts/advanced_expert_search.html')
+    trade_list = ExpertInfo.objects.values("etrade").distinct()
+    trade_list = set([item[key] for item in trade_list for key in item])
+    #print(len(trade_list))
+    subtrade_list = ExpertInfo.objects.values("esubtrade").distinct()
+    subtrade_list = set([item[key] for item in subtrade_list for key in item])
+    #print(len(subtrade_list))
+    locations = ExpertInfo.objects.values("elocation").distinct()
+    locations = set([item[key] for item in locations for key in item])
+    #print(len(locations))
+    return render(request, 'experts/advanced_expert_search.html',{'trade_list':trade_list,'subtrade_list':subtrade_list,'locations':locations})
 
 def advanced_expert_search(request):
     template_name = 'experts/advanced_expert_search_result.html'
@@ -400,83 +359,111 @@ def advanced_expert_search(request):
     position = request.GET.get('position')
     duty = request.GET.get('duty')
     area = request.GET.get('area')
+
     info_variables = [name,sex,location,trade,subtrade]
     info_variables = [var for var in info_variables if var]
     work_variables = [company,agency,position,duty,area]
     work_variables = [var for var in work_variables if var]
 
+    # DEBUG
 
-
-    result_list1 = []
-    result_list2 = []
-    all_experts = ExpertInfo.objects.all()
-    all_workexp = WorkExp.objects.all()
-    for exp in all_experts:
-        if name in info_variables and name not in exp.ename:
-            continue
-        if sex in info_variables and sex != exp.esex:
-            continue
-        if location in info_variables and (not exp.elocation or location not in exp.elocation):
-            continue
-        if trade in info_variables and (not exp.etrade or trade not in exp.etrade):
-            continue
-        if subtrade in info_variables and (not exp.esubtrade or subtrade not in exp.esubtrade):
-            continue
-        result_list1.append(exp)
-
-    for work in all_workexp:
-        if company in work_variables and (not work.company or company not in work.company):
-            continue
-        if agency in work_variables and (not work.agency or agency not in work.agency):
-            continue
-        if position in work_variables and (not work.position or position not in work.position):
-            continue
-        if duty in work_variables and (not work.duty or duty not in work.duty):
-            continue
-        if area in work_variables and (not work.area or area not in work.area):
-            continue
-        result_list2.append(work)
-
-    items = chain(result_list1, result_list2)
-    expert_list1 = []
-    expert_list2 = []
-    print("Here")
-    for item in items:
-        if type(item) is ExpertInfo:
-            print("---EXPERTINFO: ", item.eid)
-            expert_list1.append(item)
-        else:
-            print("---WorkExp: ", item.eid)
-            eid = None
-            if type(item.eid) is ExpertInfo:
-                eid = item.eid.eid
-            else:
-                eid = item.eid
-            expert = ExpertInfo.objects.get(eid=eid)
-            expert_list2.append(expert)
+    for q in info_variables:
+        print("========== 搜索关键词： ", q)
+    for q in work_variables:
+        print("========== 搜索关键词： ", q)
 
     if len(info_variables) == 0 and len(work_variables) == 0:
-        expert_list = expert_list1 + expert_list2
-    elif len(info_variables) == 0:
-        print("No constraints for expertinfo")
-        expert_list = expert_list2
-        for exp in expert_list2:
-            print(exp)
+        # 没有任何限制，直接获取所有专家
+        expert_list = ExpertInfo.objects.all()
+        return render(request, template_name, {'expert_list': expert_list})
     elif len(work_variables) == 0:
-        print("No constraints for workexp")
-        expert_list = expert_list1
-        for exp in expert_list1:
-            print(exp)
+        # 对工作经历无限制，通过对专家信息的条件限制筛选
+        print("对工作经历无限制，通过对专家信息的条件限制筛选")
+        print("========== location： ", location, type(location))
+        expert_list = ExpertInfo.objects.filter(
+            ename__contains=name,
+            esex__contains=sex,
+            etrade__contains=trade,
+            esubtrade__contains=subtrade,
+            elocation__contains=location
+        )
+        #DEBUG
+        print(len(expert_list))
+        return render(request, template_name, {'expert_list': expert_list})
+    elif len(info_variables) == 0:
+        # 对专家个人信息无限制，通过对工作经历的条件限制筛选
+        print("对专家个人信息无限制，通过对工作经历的条件限制筛选")
+        work_list = WorkExp.objects.filter(
+            company__contains=company,
+            agency__contains=agency,
+            position__contains=position,
+            duty__contains=duty,
+            area__contains=area
+        )
+        # DEBUG
+        expert_list = [work.eid for work in work_list]
+        print(len(expert_list))
+        return render(request, template_name, {'expert_list': expert_list})
     else:
-        print("都有要求取交集")
-        for exp1 in expert_list1:
-            print(exp1)
-        print("-----------")
-        for exp2 in expert_list2:
-            print(exp2)
-        expert_list = [val for val in expert_list1 if val in expert_list2]
+        # 对专家个人信息、工作经历都有条件限制，取交集进行筛选
 
-    return render(request, template_name, {'expert_list': expert_list})
+        if len(info_variables) < len(work_variables):
+            # 对工作经历的条件更多
+            result_list = WorkExp.objects.filter(
+                company__contains=company,
+                agency__contains=agency,
+                position__contains=position,
+                duty__contains=duty,
+                area__contains=area
+            )
+            expert_list = []
+            for work in result_list:
+                exp = work.eid
+                if name in info_variables and name not in exp.ename:
+                    continue
+                if sex in info_variables and (not exp.esex or sex != exp.esex):
+                    continue
+                if location in info_variables and (not exp.elocation or location not in exp.elocation):
+                    continue
+                if trade in info_variables and (not exp.etrade or trade not in exp.etrade):
+                    continue
+                if subtrade in info_variables and (not exp.esubtrade or subtrade not in exp.esubtrade):
+                    continue
+                expert_list.append(exp)
+            # DEBUG
+            # print(len(expert_list))
+            return render(request, template_name, {'expert_list': expert_list})
+
+        else:
+            result_list = ExpertInfo.objects.filter(
+                ename__contains=name,
+                esex__contains=sex,
+                etrade__contains=trade,
+                esubtrade__contains=subtrade,
+                elocation__contains=location
+            )
+            expert_list = []
+            for exp in result_list:
+                workexp = WorkExp.objects.filter(eid=exp.eid)
+                stored = False
+                for work in workexp:
+                    if company in work_variables and (not work.company or company not in work.company):
+                        continue
+                    if agency in work_variables and (not work.agency or agency not in work.agency):
+                        continue
+                    if position in work_variables and (not work.position or position not in work.position):
+                        continue
+                    if duty in work_variables and (not work.duty or duty not in work.duty):
+                        continue
+                    if area in work_variables and (not work.area or area not in work.area):
+                        continue
+                    if not stored:
+                        stored = True
+                        expert_list.append(exp)
+            # DEBUG
+            # workexp_list = [WorkExp.objects.filter(eid=expert.eid) for expert in expert_list]
+            # print(len(expert_list))
+            return render(request, template_name, {'expert_list': expert_list})
 
 
 def search_expert(request):
@@ -551,35 +538,13 @@ def search_expert(request):
 
     for item in items:
         if type(item) is ExpertInfo:
-            print("---EXPERTINFO: ", item.eid)
             expert_list.append(item)
-        elif item is ExpertComments:
-            print("---ExpertComments: ", item.eid)
-            if type(item.eid) is ExpertInfo:
-                eid = item.eid.eid
-            else:
-                eid = item.eid
-            expert = ExpertInfo.objects.get(eid=eid)
+        elif type(item) is ExpertComments:
+            expert = item.eid
             expert_list.append(expert)
         else:
-            print("---WorkExp: ", item.eid)
-            eid = None
-            if type(item.eid) is ExpertInfo:
-                eid = item.eid.eid
-            else:
-                eid = item.eid
-            expert = ExpertInfo.objects.get(eid=eid)
+            expert = item.eid
             expert_list.append(expert)
-    """
-    paginator = Paginator(expert_list, 3)
-    page = request.GET.get('page')
-    try:
-        expert_list = paginator.page(page)
-    except PageNotAnInteger:
-        expert_list = paginator.page(1)
-    except EmptyPage:
-        expert_list = paginator.page(paginator.num_pages)
-    """
     return render(request, 'experts/search_expert_results.html', {'error_msg': error_msg,'expert_list': expert_list})
 
 def isContainChinese(s):

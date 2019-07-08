@@ -3,14 +3,16 @@
     <br>
     <h2>专家列表</h2>
     <br>
-<table class="table table-striped">
+<!--<table class="table table-condensed table-striped" width="100%" style="font-size:10px; max-height:50px">-->
+<table class="table table-striped" align=center width=778 border=1 bordercolordark=white bordercolorlight=black cellpadding=3 cellspacing=0 style="font-size:11px;word-break:break-all" aline=center>
 	<caption></caption>
    <thead>
       <tr>
-          <th>姓名</th>
-          <th>性别</th>
-          <th>行业</th>
-          <th>地区</th>
+          <th width="6%">姓名</th>
+          <th width="8%">行业</th>
+          <th width="8%">公司</th>
+          <th width="8%">职位</th>
+          <th width="70%" >职责</th>
 
       </tr>
    </thead>
@@ -18,9 +20,10 @@
    {% for expert in experts %}
       <tr>
           <td><a href="{{ expert.get_absolute_url }}"> {{ expert.ename }}</a></td>
-         <td>{{ expert.esex }}</td>
-         <td>{{ expert.etrade }}</td>
-          <td>{{ expert.elocation }}</td>
+          <td>{{ expert.etrade }}</td>
+          <td>{{ expert.get_company }}</td>
+          <td>{{ expert.get_position }}</td>
+          <td>{{ expert.get_duty }}</td>
       </tr>
 
     {% endfor %}

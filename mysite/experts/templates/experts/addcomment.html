@@ -1,10 +1,10 @@
 {% extends "experts/base.html" %}
     {% block content %}
         <br>
-        <h1>增加访谈记录</h1>
+        <h2>增加评论</h2>
         <br>
 
-        <form action="." class="form-horizontal" method="post">
+        <form action="." class="form" method="post">
             {% csrf_token %}
             {% for field in formI %}
                 <div class="form-group">
@@ -23,7 +23,7 @@
             {% for expert in expert_objs %}
             <p>
                 <a href="{{ expert.add_comment_url }}">{{ expert.ename }}</a>
-               —— 手机: {{ expert.emobile }}&nbsp&nbsp&nbsp//&nbsp&nbsp&nbspAddtime: {{ expert.addtime }}
+               —— 行业: {{ expert.etrade }}&nbsp&nbsp&nbsp//&nbsp&nbsp&nbsp公司: {{ expert.get_company }}&nbsp&nbsp&nbsp//&nbsp&nbsp&nbsp职位: {{ expert.get_position }}
             </p>
             {% endfor %}
         </form>

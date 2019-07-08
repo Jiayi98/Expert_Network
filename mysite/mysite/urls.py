@@ -64,8 +64,8 @@ urlpatterns = [
     path('update/<int:eid>/<int:expid>/workexpdetail/', experts_views.workexp_detail_update, name='workexp_detail_update'),
 
     path('deleteexpert/', update_views.expertInfoDelete, name='deleteexpert'),
-    path('delete_confirm/<str:ename>/<str:emobile>/', experts_views.delete_confirm, name='delete_confirm'),
-    path('delete/<str:ename>/<str:emobile>/', experts_views.myDelete, name='myDelete'),
+    path('delete_confirm/<int:eid>/<str:ename>/', experts_views.delete_confirm, name='delete_confirm'),
+    path('delete/<int:eid>/<str:ename>/', experts_views.myDelete, name='myDelete'),
     path('expertinfodeletefromdatabase/', update_views.expertInfoDeleteFromDatabase, name='expertinfodeletefromdatabase'),
 
     path('deletecomment/<int:eid>/<int:cmtid>/', update_views.delete_comment, name='delete_comment'),

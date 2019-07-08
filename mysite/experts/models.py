@@ -1,13 +1,12 @@
 # Create your models here.
 from django.db import models
 from django.urls import reverse
-
+from django.shortcuts import render
 
 class ExpertInfo(models.Model):
-
     eid = models.AutoField(primary_key=True)
     ename = models.CharField(max_length=50)
-    esex = models.CharField(max_length=2,choices=(('M','M'),('F','F')),default='F')
+    esex = models.CharField(max_length=2)
     emobile = models.CharField(max_length=50, blank=True, null=True)
     eemail = models.CharField(max_length=80, blank=True, null=True)
     etrade = models.CharField(max_length=150, blank=True, null=True)
@@ -23,12 +22,12 @@ class ExpertInfo(models.Model):
     eremark = models.TextField(blank=True, null=True)
     admin_id = models.IntegerField(blank=True, null=True)
     addtime = models.DateTimeField(auto_now_add=True)
+    ebackground = models.TextField(blank=True, null=False)
 
     class Meta:
         managed = True
         ordering = ('-addtime',)
-        permissions = [('can_view_contact_info', u'可读联系方式')]
-
+        db_table = 'expert_info'
     def __str__(self):
         return "{}-{}".format(self.eid, self.ename)
 
@@ -38,12 +37,12 @@ class ExpertInfo(models.Model):
         return reverse('expert_contact_info', args=[self.ename,self.eid])
 
     def myDelete(self):
-        print("==============models.delete============",self.eid, self.ename, self.emobile)
-        return reverse('myDelete',args=[self.ename, self.emobile])
+        print("==============models.delete============",self.eid, self.ename)
+        return reverse('myDelete',args=[self.eid, self.ename])
 
     def delete_confirm_url(self):
-        print("==============models.delete_confirm_url============",self.eid, self.emobile)
-        return reverse('delete_confirm',args=[self.ename, self.emobile])
+        print("==============models.delete_confirm_url============",self.eid, self.ename)
+        return reverse('delete_confirm',args=[self.eid, self.ename])
 
     def get_absolute_url(self):
         return reverse('expert_detail',args=[self.ename, self.eid])
@@ -65,16 +64,60 @@ class ExpertInfo(models.Model):
     def get_update_url(self):
         return reverse('expert_detail_update', args=[self.ename, self.emobile])
 
+    def get_company(self):
+        #print("==============models.get_workexp============")
+        work_list = WorkExp.objects.filter(eid=self.eid)
+        if len(work_list) == 0:
+            return "无"
+        else:
+            #l = [work_list[0].company, work_list[0].position]
+            #return ('-').join(l)
+            #result = ('；').join([(work.company,work.position).__str__() for work in work_list])
+            return work_list[0].company
+
+    def get_position(self):
+        #print("==============models.get_workexp============")
+        work_list = WorkExp.objects.filter(eid=self.eid)
+        if len(work_list) == 0:
+            return "无"
+        else:
+            #l = [work_list[0].company,work_list[0].position]
+            return work_list[0].position
+            #result = ('；').join([work.position for work in work_list])
+            #return result
+
+    def get_duty(self):
+        #print("==============models.get_workexp============")
+        work_list = WorkExp.objects.filter(eid=self.eid)
+        if len(work_list) == 0:
+            return "无"
+        else:
+            #l = [work_list[0].company,work_list[0].position]
+            return work_list[0].duty
+            #result = ('；').join([work.position for work in work_list])
+            #return result
 
 
 class ExpertComments(models.Model):
+    """
     cmtid = models.AutoField(primary_key=True)
     eid = models.ForeignKey('ExpertInfo', on_delete=models.CASCADE)
+    #eid = models.ForeignKey('ExpertInfo', models.DO_NOTHING, db_column='eid')
     eproblem = models.TextField(blank=True, null=True)
     ecomment = models.TextField(blank=True, null=True)
 
     class Meta:
         managed = True
+        #db_table = expert_comments
+    """
+    cmtid = models.AutoField(primary_key=True)
+    eid = models.ForeignKey('ExpertInfo', models.DO_NOTHING, db_column='eid')
+    eproblem = models.TextField(blank=True, null=True)
+    ecomment = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'expert_comments'
 
     def __str__(self):
         # 默认的人们可读的对象表达方式
@@ -104,11 +147,46 @@ class ExpertComments(models.Model):
         return reverse('comment_detail',args=[self.eid,])
     """
 
+class WorkExp(models.Model):
+    expid = models.AutoField(primary_key=True)
+    eid = models.ForeignKey(ExpertInfo, models.DO_NOTHING, db_column='eid')
+    stime = models.CharField(max_length=150,blank=True, null=True)
+    etime = models.CharField(max_length=150,blank=True, null=True)
+    company = models.CharField(max_length=150, blank=True, null=True)
+    agency = models.CharField(max_length=150, blank=True, null=True)
+    position = models.CharField(max_length=150, blank=True, null=True)
+    duty = models.TextField(blank=True, null=True)
+    area = models.TextField(blank=True, null=True)
+    istonow = models.IntegerField(blank=True, null=True)
 
+    class Meta:
+        managed = True
+        ordering = ('-stime',)
+        db_table = 'work_exp'
 
+    def __str__(self):
+        return "{}-{}".format(self.company,self.position)
+
+    def get_workexp_update_url(self):
+        print("==========在models.py中的 get_workexp_update_url()")
+        num = self.eid.eid
+        return reverse('workexp_detail_update', args=[num, self.expid])
+
+    def delete_workexp(self):
+        print("==========在models.py中的 delete_workexp()")
+        num = self.eid.eid
+        return reverse('delete_workexp', args=[num, self.expid])
+
+    def delete_workexp_confirm(self):
+        print("==========在models.py中的 delete_workexp_confirm()")
+        num = self.eid.eid
+        return reverse('delete_workexp_confirm', args=[num, self.expid])
+
+"""
 class WorkExp(models.Model):
     expid = models.AutoField(primary_key=True)
     eid = models.ForeignKey('ExpertInfo', on_delete=models.CASCADE)
+    #eid = models.ForeignKey(ExpertInfo, models.DO_NOTHING, db_column='eid')
     stime = models.DateField(blank=True, null=True)
     etime = models.DateField(blank=True, null=True)
     company = models.CharField(max_length=150, blank=True, null=True)
@@ -121,6 +199,7 @@ class WorkExp(models.Model):
     class Meta:
         managed = True
         ordering = ('-stime',)
+        #db_table = work_exp
 
     def __str__(self):
         return "{}-{}".format(self.eid,self.company)
@@ -142,3 +221,4 @@ class WorkExp(models.Model):
         num = self.eid.eid
         print(type(num))
         return reverse('delete_workexp_confirm', args=[num,self.expid])
+"""

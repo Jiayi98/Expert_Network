@@ -25,7 +25,7 @@ SECRET_KEY = 'rj8e8&w=zpq)mwt=2!0fezx^rjw30!_p7zq&bxp_*fy*$ovlds'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -79,11 +79,15 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'expert_test_new',
-        'USER': 'root',
-        'PASSWORD': '123',
-        'HOST': '127.0.0.1',
+        'NAME': 'exp_old',
+        'USER': 'zhoujiayi',
+        'PASSWORD': 'JUDYzhou959',
+        'HOST': 'rm-2zebl9v5873iw36c71o.mysql.rds.aliyuncs.com',
         'PORT': '3306',
+        'OPTIONS':{
+            'init_command':"SET sql_mode='STRICT_TRANS_TABLES'",
+            'charset':'utf8mb4',
+        },
     }
 }
 
@@ -126,11 +130,11 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-#LOGIN_REDIRECT_URL = 'base'
+
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'expertinfolist'
-#LOGIN_URL = 'login'
+
 LOGOUT_URL = 'logout'
-#AUTH_USER_MODEL = "users.NewUser"
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -7,6 +7,11 @@ from django.contrib.auth.models import User
 class MyUser(models.Model):
     user = models.OneToOneField(User, on_delete= models.CASCADE)
 
+    class Meta:
+        permissions = (
+            ('can_view_contact_info', u'查看联系方式'),
+        )
+
     def __str__(self):
         return self.user.username
 # # Create your models here.
