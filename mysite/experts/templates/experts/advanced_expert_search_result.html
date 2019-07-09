@@ -3,7 +3,27 @@
     <br>
     <h2>搜索结果</h2>
     <input type="button" class="btn btn-info btn-sm"  value="返回组合搜索页面" onclick="location.href='/advanced_expert/'">
-    <br><br>
+
+<!-- 导出文件 -->
+
+<button id="export_excel" type="button" onclick="export();">导出excel</button>
+    <script type="text/javascript">
+        function export(){
+                $.ajax({
+                    type: 'POST',
+                    url: "{% url 'export_all_excel' %} ",
+                    data:{
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: 'success'
+                });
+                alert_text = '导出数据成功';
+                alert(alert_text);
+        }
+    </script>
+<!-- 导出文件 -->
+
+<br><br>
     {% if error_msg %}
         <p>{{ error_msg }}</p>
     {% endif %}

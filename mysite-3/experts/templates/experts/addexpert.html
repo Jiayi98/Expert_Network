@@ -1,0 +1,33 @@
+{% extends "experts/base.html" %}
+    {% block content %}
+        <br>
+        <h2>增加专家</h2>
+        <br>
+        <form action="/addexperttodatabase/" method="post" name="addexpert">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {% if field.label == '背景' %}
+                        <label class="sol-sm-2 control-label">{{ field.label }}：</label>
+                        <div class="col-sm-10">
+                            <textarea name='ebackground' class="form-control" rows="5"></textarea>
+                        </div>
+                    {% else %}
+                        <label class="sol-sm-2 control-label">{{ field.label }}：</label>
+                        <div class="col-sm-10">
+                            {{ field }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <div class="pull-right col-sm-pull-11">
+                <button type="reset" class="btn btn-warning">重置</button>
+                <button type="submit" class="btn btn-success">添加</button>
+            </div>
+
+            <!--{{ form.as_p }}-->
+            <!--<input type="reset">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="add">-->
+        </form>
+
+    {% endblock content %}
+

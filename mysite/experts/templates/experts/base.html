@@ -24,7 +24,7 @@
         <ul class="nav navbar-nav navbar-left">
             {% if user.is_authenticated %}
 
-                <li class="nav-item">
+               <!-- <li class="nav-item">
                     <div class="container-fluid">
                         <form style="margin-top: 0%" method="get" action="{% url 'search_expert' %}" class="navbar-form navbar-left" role="search">
                             {% csrf_token %}
@@ -35,7 +35,7 @@
                             {{error_msg}}
                         {% endif %}
                     </div>
-                </li>
+                </li>-->
              <li class="nav-item">
                     <button class="btn btn-warning btn-sm" onclick="window.location.href='{% url 'advanced_expert_form'%}'">高级搜索</button>
                 </li>
@@ -60,10 +60,10 @@
                                 <a role="menuitem" tabindex="-1" href="{% url 'updateexpert' %}" class="btn btn-sm"> &nbsp&nbsp&nbsp更新专家信息 </a>
                             </li>
                             <li role="presentation">
-                                {% if perms.experts.can_view_contact_info %}
+                                {% if perms.experts.can_delete_expert_info %}
                                     <a role="menuitem" tabindex="-1" href="{% url 'deleteexpert' %}" class="btn btn-sm"> &nbsp&nbsp&nbsp删除专家信息 </a>
                                 {%  else %}
-                                <a role="menuitem" tabindex="-1" href="." class="btn btn-sm"> &nbsp&nbsp&nbsp删除专家信息</a>
+                                <a role="menuitem" tabindex="-1" href="." class="btn btn-sm"> &nbsp&nbsp&nbsp删除专家信息(无权限)</a>
                                 {% endif %}
                             </li>
                         </ul>

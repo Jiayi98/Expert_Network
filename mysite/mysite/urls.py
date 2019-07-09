@@ -54,7 +54,7 @@ urlpatterns = [
     path('updateexpert/', update_views.expertInfoUpdate, name='updateexpert'),
     path('expertinfolist/', experts_views.expertInfo_list, name='expertinfolist'),
     path('<str:ename>/<int:eid>/', experts_views.expert_detail, name='expert_detail'),
-    path('update/<str:ename>/<str:emobile>/', experts_views.expert_detail_update, name='expert_detail_update'),
+    path('update/<str:ename>/<int:eid>/', experts_views.expert_detail_update, name='expert_detail_update'),
     path('expertinfoupdatetodatabase/', update_views.expertInfoUpdateToDatabase, name='expertinfoupdatetodatabase'),
 
     path('<int:eid>/<str:ename>/commentdetail/', experts_views.comment_detail, name='comment_detail'),
@@ -79,6 +79,7 @@ urlpatterns = [
 
     path('expert_contact_info/<str:ename>/<int:eid>/', experts_views.expert_contact_info, name='expert_contact_info'),
 
+    path('export_all_excel/', experts_views.export_all_excel, name='export_all_excel'),
     path('', include('experts.urls')),
     path('', include('users.urls')),
 

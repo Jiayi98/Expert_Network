@@ -2,6 +2,8 @@
 from django.db import models
 from django.urls import reverse
 from django.shortcuts import render
+import os
+import xlsxwriter
 
 class ExpertInfo(models.Model):
     eid = models.AutoField(primary_key=True)
@@ -23,6 +25,7 @@ class ExpertInfo(models.Model):
     admin_id = models.IntegerField(blank=True, null=True)
     addtime = models.DateTimeField(auto_now_add=True)
     ebackground = models.TextField(blank=True, null=False)
+    efee = models.FloatField(blank=True,null=False,default=0.0)
 
     class Meta:
         managed = True
@@ -62,7 +65,7 @@ class ExpertInfo(models.Model):
         return reverse('add_workexp',args=[self.ename, self.emobile])
 
     def get_update_url(self):
-        return reverse('expert_detail_update', args=[self.ename, self.emobile])
+        return reverse('expert_detail_update', args=[self.ename, self.eid])
 
     def get_company(self):
         #print("==============models.get_workexp============")
@@ -96,6 +99,41 @@ class ExpertInfo(models.Model):
             return work_list[0].duty
             #result = ('；').join([work.position for work in work_list])
             #return result
+
+    def export_excel(self):
+        print("=============models.export_excel========")
+        par_path = '/Users/user/Django/mysite/experts/static/xlsxfiles'
+        os.chdir(par_path)
+        file = 'all_poemers.xlsx'
+        if os.path.isfile(file):
+            os.remove(file)
+            data = self.all_experts_data()
+
+        fields = ['ename','esex','emobile','eemail','etrade',
+                  'esubtrade','ebirthday','elocation',
+                  'eqq','estate','ecomefrom','eremark','efee','ebackground']
+        workbook = xlsxwriter.Workbook(file,encoding='utf-8')
+        worksheet = workbook.add_worksheet('data')
+        # 表头格式
+        format1 = workbook.add_format(
+            {'bold': True, 'font_color': 'black', 'font_size': 13, 'align': 'left', 'font_name': u'宋体'})
+        # 表头外格式
+        format2 = workbook.add_format({'font_color': 'black', 'font_size': 9, 'align': 'left', 'font_name': u'宋体'})
+        # A列列宽设置能更好的显示
+        worksheet.set_column("A:A", 9)
+        # 插入第一行表头标题
+        for i in range(0, len(fields)):
+            field = fields[i]
+            worksheet.write(0, i, field, format1)
+        # 从第二行开始插入数据
+        for i in range(len(data)):
+            item = data[i]
+            for j in range(len(fields)):
+                field = fields[j]
+                worksheet.write(i + 1, j, item[field], format2)
+        workbook.close()
+        alert_text = '导出%s条数据到excel成功' % len(data)
+        return alert_text
 
 
 class ExpertComments(models.Model):

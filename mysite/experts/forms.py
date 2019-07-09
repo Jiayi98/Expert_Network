@@ -19,6 +19,7 @@ class ExpertInfoForm(forms.ModelForm):
     ecomefrom = forms.CharField(label='来源',required=False)
     eremark = forms.CharField(label='备注',required=False)
     ebackground = forms.CharField(label='背景',required=False)
+    efee = forms.FloatField(label='咨询费',required=False)
     #admin_id = forms.IntegerField(required=False)
     #addtime = forms.DateTimeField(initial=datetime.now())
 
@@ -26,7 +27,7 @@ class ExpertInfoForm(forms.ModelForm):
         model = ExpertInfo
         fields = ('ename','esex','emobile','eemail','etrade',
                   'esubtrade','ebirthday','elocation',
-                  'eqq','estate','ecomefrom','eremark','ebackground')
+                  'eqq','estate','ecomefrom','eremark','ebackground','efee')
 
     def __init__(self, *args, **kwargs):
         super(ExpertInfoForm, self).__init__(*args, **kwargs)

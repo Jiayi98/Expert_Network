@@ -12,6 +12,11 @@
                         <div class="col-sm-10">
                             <textarea name='ebackground' class="form-control" rows="5"></textarea>
                         </div>
+                    {% elif field.label == '咨询费' %}
+                        <label class="sol-sm-2 control-label">{{ field.label }}：</label>
+                        <div class="col-sm-10">
+                            <input type="text" value="0.0" name='efee' class="form-control">
+                        </div>
                     {% else %}
                         <label class="sol-sm-2 control-label">{{ field.label }}：</label>
                         <div class="col-sm-10">

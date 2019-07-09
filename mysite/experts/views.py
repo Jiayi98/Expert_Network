@@ -13,7 +13,11 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import permission_required
 
-
+def export_all_excel(request):
+    print("==========views.export_all_excel========")
+    exp = ExpertInfo()
+    alert_text = exp.export_excel(None)
+    return HttpResponse(alert_text)
 
 # Create your views here.
 def base(request):
@@ -88,14 +92,12 @@ def addExpert(request):
 @login_required
 def addExpertToDatabase(request):
     if request.method == "POST":
-        #print("-----------POST----------")
         expertInfo_form = ExpertInfoForm(data=request.POST)
         if expertInfo_form.is_valid():
             new_expert = expertInfo_form.save(commit=False)
             # filter得到的是一个list，而不是一个object
-            expert = ExpertInfo.objects.filter(ename=new_expert.ename, emobile=new_expert.emobile)
+            expert = ExpertInfo.objects.filter(ename=new_expert.ename, emobile=new_expert.emobile, eemail=new_expert.eemail)
             if expert.exists() == 0:
-                #print("-----------Does not exist!----------")
                 new_expert = expertInfo_form.save()
             else:
                 #print("!!!!!!!!!!!This expert already existed!!!!!!!!")
@@ -117,8 +119,7 @@ def addComment(request):
     formI = ExpertInfoFormUpdate()
     ename = request.POST.get("ename")
     expert_objs = ExpertInfo.objects.filter(ename=ename)
-    #for obj in expert_objs:
-        #print(obj.eid)
+
     return render(request, 'experts/addcomment.html', {'formI': formI, 'expert_objs': expert_objs})
     #return render(request, 'experts/addcomment.html', {'formC': formC,'formI':formI,'expert_objs':expert_objs})
 
@@ -135,8 +136,6 @@ def add_comment(request,ename,emobile):
     try:
         expert = ExpertInfo.objects.get(ename=ename, emobile=emobile)
         myurl = 'http://127.0.0.1:8000/{eid}/{ename}/commentdetail'.format(eid=expert.eid, ename=expert.ename)
-
-        #print(expert.eid)
     except:
         #print("!!!!!!!!!!!This expert not exist!!!!!!!!")
         return HttpResponseRedirect('/addecomment/')
@@ -154,7 +153,6 @@ def add_comment(request,ename,emobile):
 
             result['status'] = 'success'
             return HttpResponseRedirect(myurl)
-            #return HttpResponseRedirect('/addcomplete/')
     return render(request, 'experts/addcomment_confirm.html', {"expert":expert,"formC":formC,'result':result, 'myurl':myurl})
 
 
@@ -252,9 +250,9 @@ def expert_detail(request, ename, eid):
     #return render(request, 'experts/expert_detail.html', {'expert':expert, 'comments':comments})
 
 
-def expert_detail_update(request, ename, emobile):
+def expert_detail_update(request, ename, eid):
     template_name = 'experts/expert_detail_update.html'
-    object = get_object_or_404(ExpertInfo, ename=ename, emobile=emobile)
+    object = get_object_or_404(ExpertInfo, eid=eid)
     #form = ExpertInfoFormUpdateDB(instance=expert)
 
     if request.method == 'POST':
