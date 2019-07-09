@@ -4,24 +4,7 @@
     <h2>搜索结果</h2>
     <input type="button" class="btn btn-info btn-sm"  value="返回组合搜索页面" onclick="location.href='/advanced_expert/'">
 
-<!-- 导出文件 -->
 
-<button id="export_excel" type="button" onclick="export();">导出excel</button>
-    <script type="text/javascript">
-        function export(){
-                $.ajax({
-                    type: 'POST',
-                    url: "{% url 'export_all_excel' %} ",
-                    data:{
-                        'csrfmiddlewaretoken': '{{ csrf_token }}'
-                    },
-                    success: 'success'
-                });
-                alert_text = '导出数据成功';
-                alert(alert_text);
-        }
-    </script>
-<!-- 导出文件 -->
 
 <br><br>
     {% if error_msg %}
@@ -37,7 +20,7 @@
                 <th width="8%">行业</th>
                 <th width="8%">公司</th>
                 <th width="8%">职位</th>
-                <th width="70%">职责</th>
+                <th width="70%">背景</th>
             </tr>
         </thead>
         <tbody>
@@ -47,7 +30,7 @@
                 <td style="font-size:11px">{{ expert.etrade }}</td>
                 <td style="font-size:11px">{{ expert.get_company }}</td>
                 <td style="font-size:11px">{{ expert.get_position }}</td>
-                <td style="font-size:11px">{{ expert.get_duty }}</td>
+                <td style="font-size:11px">{{ expert.ebackground }}</td>
             </tr>
             {% empty %}
                 <div class="no-post">

@@ -80,9 +80,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'exp_old',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': 'rm-',
+        'USER': 'zhoujiayi',
+        'PASSWORD': 'JUDYzhou959',
+        'HOST': 'rm-2zebl9v5873iw36c71o.mysql.rds.aliyuncs.com',
         'PORT': '3306',
         'OPTIONS':{
             'init_command':"SET sql_mode='STRICT_TRANS_TABLES'",

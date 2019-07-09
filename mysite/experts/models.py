@@ -2,8 +2,8 @@
 from django.db import models
 from django.urls import reverse
 from django.shortcuts import render
-import os
-import xlsxwriter
+#import os
+#import xlsxwriter
 
 class ExpertInfo(models.Model):
     eid = models.AutoField(primary_key=True)
@@ -99,7 +99,7 @@ class ExpertInfo(models.Model):
             return work_list[0].duty
             #result = ('；').join([work.position for work in work_list])
             #return result
-
+    """
     def export_excel(self):
         print("=============models.export_excel========")
         par_path = '/Users/user/Django/mysite/experts/static/xlsxfiles'
@@ -134,6 +134,7 @@ class ExpertInfo(models.Model):
         workbook.close()
         alert_text = '导出%s条数据到excel成功' % len(data)
         return alert_text
+    """
 
 
 class ExpertComments(models.Model):

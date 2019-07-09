@@ -79,13 +79,14 @@ urlpatterns = [
 
     path('expert_contact_info/<str:ename>/<int:eid>/', experts_views.expert_contact_info, name='expert_contact_info'),
 
-    path('export_all_excel/', experts_views.export_all_excel, name='export_all_excel'),
+
     path('', include('experts.urls')),
     path('', include('users.urls')),
 
 ]
 
 """
+path('export_all_excel/', experts_views.export_all_excel, name='export_all_excel'),
 path('addworkexptodatabase/', experts_views.addWorkexpToDatabase, name='addworkexptodatabase'),
 path('addcommenttodatabase/<str:ename>/<str:emobile>/', experts_views.addCommentToDatabase, name='addcommenttodatabase'),
  path('update/<int:eid>/<str:ename>/commentdetail/', experts_views.comment_detail_update, name='comment_detail_update'),

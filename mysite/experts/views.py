@@ -13,11 +13,13 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import permission_required
 
+"""
 def export_all_excel(request):
     print("==========views.export_all_excel========")
     exp = ExpertInfo()
     alert_text = exp.export_excel(None)
     return HttpResponse(alert_text)
+"""
 
 # Create your views here.
 def base(request):
@@ -135,6 +137,8 @@ def add_comment(request,ename,emobile):
 
     try:
         expert = ExpertInfo.objects.get(ename=ename, emobile=emobile)
+        #47.94.224.242:1973
+        #myurl = 'http://47.94.224.242:1973/{eid}/{ename}/commentdetail'.format(eid=expert.eid, ename=expert.ename)
         myurl = 'http://127.0.0.1:8000/{eid}/{ename}/commentdetail'.format(eid=expert.eid, ename=expert.ename)
     except:
         #print("!!!!!!!!!!!This expert not exist!!!!!!!!")
@@ -149,8 +153,9 @@ def add_comment(request,ename,emobile):
             newComment.eproblem = eproblem
             newComment.ecomment = ecomment
             newComment.save()
+            # 47.94.224.242:1973
             myurl = 'http://127.0.0.1:8000/{eid}/{ename}/commentdetail'.format(eid=expert.eid, ename=expert.ename)
-
+            #myurl = 'http://47.94.224.242:1973/{eid}/{ename}/commentdetail'.format(eid=expert.eid, ename=expert.ename)
             result['status'] = 'success'
             return HttpResponseRedirect(myurl)
     return render(request, 'experts/addcomment_confirm.html', {"expert":expert,"formC":formC,'result':result, 'myurl':myurl})
@@ -208,6 +213,8 @@ def add_workexp(request,ename,emobile):
             newExp.area = area
             #newExp.istonow = istonow
             newExp.save()
+            # 47.94.224.242:1973
+            #url = 'http://47.94.224.242:1973/{eid}/{ename}/workexpdetail'.format(eid=expert.eid, ename=expert.ename)
             url = 'http://127.0.0.1:8000/{eid}/{ename}/workexpdetail'.format(eid=expert.eid, ename=expert.ename)
             return HttpResponseRedirect(url)
             #return HttpResponseRedirect('/addcomplete/')
@@ -260,7 +267,9 @@ def expert_detail_update(request, ename, eid):
         if form.is_valid():
             form.save()
             # if is_ajax(), we just return the validated form, so the modal will close
-        return HttpResponseRedirect('/addcomplete/')
+            myurl = "http://127.0.0.1:8000/{ename}/{eid}/".format(ename=ename,eid=eid)
+            #myurl = "http://47.94.224.242:1973/{object.ename}/{object.eid}/"
+            return HttpResponseRedirect(myurl)
     else:
         form = ExpertInfoFormUpdateDB(instance=object)
 
@@ -347,18 +356,20 @@ def advanced_expert_form(request):
 
 def advanced_expert_search(request):
     template_name = 'experts/advanced_expert_search_result.html'
+    eid = request.GET.get('eid')
     name = request.GET.get('name')
     sex =request.GET.get('sex')
     location =request.GET.get('location')
     trade = request.GET.get('trade')
     subtrade = request.GET.get('subtrade')
+    background = request.GET.get('background')
     company = request.GET.get('company')
     agency = request.GET.get('agency')
     position = request.GET.get('position')
     duty = request.GET.get('duty')
     area = request.GET.get('area')
 
-    info_variables = [name,sex,location,trade,subtrade]
+    info_variables = [eid,name,sex,location,trade,subtrade,background]
     info_variables = [var for var in info_variables if var]
     work_variables = [company,agency,position,duty,area]
     work_variables = [var for var in work_variables if var]
@@ -374,19 +385,20 @@ def advanced_expert_search(request):
         # 没有任何限制，直接获取所有专家
         expert_list = ExpertInfo.objects.all()
         return render(request, template_name, {'expert_list': expert_list})
+    elif eid:
+        expert_list = ExpertInfo.objects.filter(eid=eid)
+        return render(request, template_name, {'expert_list': expert_list})
     elif len(work_variables) == 0:
         # 对工作经历无限制，通过对专家信息的条件限制筛选
         print("对工作经历无限制，通过对专家信息的条件限制筛选")
-        print("========== location： ", location, type(location))
         expert_list = ExpertInfo.objects.filter(
             ename__contains=name,
-            esex__contains=sex,
+            esex__icontains=sex,
             etrade__contains=trade,
             esubtrade__contains=subtrade,
             elocation__contains=location
         )
         #DEBUG
-        print(len(expert_list))
         return render(request, template_name, {'expert_list': expert_list})
     elif len(info_variables) == 0:
         # 对专家个人信息无限制，通过对工作经历的条件限制筛选
@@ -401,6 +413,9 @@ def advanced_expert_search(request):
         # DEBUG
         expert_list = [work.eid for work in work_list]
         print(len(expert_list))
+        if company != '':
+            #print("排序！！")
+            expert_list = search_sort_helper(expert_list, company)
         return render(request, template_name, {'expert_list': expert_list})
     else:
         # 对专家个人信息、工作经历都有条件限制，取交集进行筛选
@@ -435,7 +450,7 @@ def advanced_expert_search(request):
         else:
             result_list = ExpertInfo.objects.filter(
                 ename__contains=name,
-                esex__contains=sex,
+                esex__icontains=sex,
                 etrade__contains=trade,
                 esubtrade__contains=subtrade,
                 elocation__contains=location
@@ -461,6 +476,9 @@ def advanced_expert_search(request):
             # DEBUG
             # workexp_list = [WorkExp.objects.filter(eid=expert.eid) for expert in expert_list]
             # print(len(expert_list))
+            if company != '':
+                #print("排序！！")
+                expert_list = search_sort_helper(expert_list, company)
             return render(request, template_name, {'expert_list': expert_list})
 
 
@@ -477,7 +495,6 @@ def search_expert(request):
     result_list3 = []
     if isContainChinese(q):
         result_list1 = ExpertInfo.objects.filter(
-
                                             Q(ename__contains=q) |
                                             Q(esex__contains=q)|
                                             Q(emobile__contains=q) |
@@ -490,7 +507,8 @@ def search_expert(request):
                                             Q(estate__contains=q) |
                                             Q(ecomefrom__contains=q) |
                                             Q(eremark__contains=q) |
-                                            Q(addtime__contains=q)
+                                            Q(addtime__contains=q)|
+                                            Q(ebackground__contains=q)
                                          )
 
 
@@ -519,6 +537,7 @@ def search_expert(request):
                                                 Q(estate__icontains=q) |
                                                 Q(ecomefrom__icontains=q) |
                                                 Q(eremark__icontains=q) |
+                                                Q(ebackground__icontains=q) |
                                                 Q(addtime__icontains=q)
                                                 )
 
@@ -533,17 +552,49 @@ def search_expert(request):
                                             )
 
     items = chain(result_list1, result_list2, result_list3)
-
+    #items = chain(result_list1, result_list2)
     for item in items:
         if type(item) is ExpertInfo:
             expert_list.append(item)
+            #print(item, "========expert")
         elif type(item) is ExpertComments:
             expert = item.eid
             expert_list.append(expert)
+            #print(expert, "=======comments")
         else:
             expert = item.eid
             expert_list.append(expert)
+            #print(expert,"=====workexp")
+    expert_list = list(set(expert_list))
+
+    expert_list = search_sort_helper(expert_list, q)
     return render(request, 'experts/search_expert_results.html', {'error_msg': error_msg,'expert_list': expert_list})
+
+def search_sort_helper(expert_list, q):
+    new_list = []
+    for exp in expert_list:
+        index = get_index(exp, q)
+        obj = [exp, index]
+        new_list.append(obj)
+
+    new_list = sorted(new_list, reverse=True, key=comparator)
+    # print(new_list)
+    expert_list = [elem[0] for elem in new_list]
+    return expert_list
+
+def get_index(exp,q):
+    company_name = exp.get_company()
+    company_len = len(company_name)
+    str_count = len(company_name.split(q)) - 1
+    #print(str_count)
+    if(company_len == 0):
+        return 0
+    else:
+        index = str_count/company_len
+        return index
+
+def comparator(elem):
+    return elem[1]
 
 def isContainChinese(s):
     for c in s:
